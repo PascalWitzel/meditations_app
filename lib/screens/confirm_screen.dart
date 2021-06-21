@@ -4,6 +4,9 @@ import 'package:meditations_app/screens/appbar.dart';
 class ConfirmScreen extends StatelessWidget {
 
   String title;
+  String category;
+  String length;
+  String sound;
 
   ConfirmScreen(String t) {
     this.title = t;
@@ -26,6 +29,7 @@ class ConfirmScreen extends StatelessWidget {
                 border: Border.all(color: Colors.black87, width: 2),
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.white,
+
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black54,
@@ -39,9 +43,9 @@ class ConfirmScreen extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Icon(Icons.ac_unit),
-                      Icon(Icons.ac_unit),
-                      Icon(Icons.ac_unit),
+                      Icon(Icons.category),
+                      Icon(Icons.timelapse),
+                      Icon(Icons.headphones),
                     ],
                   ),
                   Column(
@@ -56,7 +60,9 @@ class ConfirmScreen extends StatelessWidget {
               ),
             ),
             ElevatedButton(onPressed: () {}, child: Text("Starten")),
-            ElevatedButton(onPressed: () {}, child: Text("Zurück")),
+            ElevatedButton(onPressed: () {
+              Navigator.pop(context);
+            }, child: Text("Zurück")),
           ],
           ),
         ]

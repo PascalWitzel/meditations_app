@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meditations_app/screens/appbar.dart';
 
-import 'home.dart';
+import 'menu_home.dart';
 import 'menu_sound.dart';
 
 class MenuDuration extends StatelessWidget {

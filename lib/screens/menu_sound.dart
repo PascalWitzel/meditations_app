@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meditations_app/screens/appbar.dart';
 
 import 'confirm_screen.dart';
-import 'home.dart';
+import 'menu_home.dart';
 
 class MenuSound extends StatelessWidget {
 
