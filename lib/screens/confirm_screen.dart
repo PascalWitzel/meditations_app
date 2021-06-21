@@ -3,13 +3,17 @@ import 'package:meditations_app/screens/appbar.dart';
 
 class ConfirmScreen extends StatelessWidget {
 
-  String title;
-  String category;
-  String length;
-  String sound;
+  String title = " ";
+  String category = " ";
+  String length = " ";
+  String sound = " ";
 
   ConfirmScreen(String t) {
     this.title = t;
+    List<String> split = title.split("-");
+    category = split[0].trim();
+    length = split[1].trim();
+    sound = split[2].trim();
   }
 
   @override
@@ -51,9 +55,9 @@ class ConfirmScreen extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text("Genre"),
-                      Text("Länge"),
-                      Text("Sound"),
+                      Text(category),
+                      Text(length),
+                      Text(sound),
                     ],
                   ),
                 ],
