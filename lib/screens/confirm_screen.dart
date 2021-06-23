@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meditations_app/screens/appbar.dart';
 
+import 'meditation.dart';
+
 class ConfirmScreen extends StatelessWidget {
 
   String title = " ";
@@ -33,13 +35,6 @@ class ConfirmScreen extends StatelessWidget {
                 border: Border.all(color: Colors.black87, width: 2),
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.white,
-
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black54,
-                    offset: Offset(2.0, 2.0),
-                  )
-                ],
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -63,7 +58,9 @@ class ConfirmScreen extends StatelessWidget {
                 ],
               ),
             ),
-            ElevatedButton(onPressed: () {}, child: Text("Starten")),
+            ElevatedButton(onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => meditationsScreen()));
+            }, child: Text("Starten")),
             ElevatedButton(onPressed: () {
               Navigator.pop(context);
             }, child: Text("Zurück")),
