@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:meditations_app/screens/settingsScreen.dart';
 
+import 'menu_home.dart';
+
 AppBar appbarhome(BuildContext context, String title) {
   return AppBar(
     centerTitle: true,
@@ -58,9 +60,8 @@ AppBar appbarende(BuildContext context, String title) {
       icon: Icon(Icons.clear),
       onPressed: () {
         //Pop-Up einfügen
-        Navigator.pop(
-            context
-        );
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => HomeScreen()));
       },
     ),
     actions: [
