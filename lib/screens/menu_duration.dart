@@ -36,7 +36,7 @@ class MenuDuration extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(child: Text("Wähle deine Meditation")),
+                Container(child: Text("Wähle die Länge deiner Meditation")),
                 buildMenuCrate(Icons.timelapse, times[0], context, MenuSound(title + " - " + times[0])),
                 buildMenuCrate(Icons.timelapse, times[1], context, MenuSound(title + " - " + times[1])),
                 buildMenuCrate(Icons.timelapse, times[2], context, MenuSound(title + " - " + times[2])),

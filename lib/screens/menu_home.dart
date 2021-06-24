@@ -20,10 +20,10 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Container(
                   child: Text(
-                  "Wähle deine Meditation",
+                  "Wähle die Kategorie deiner Meditation",
                   style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.black,
+                    fontSize: 20,
+                    color: Colors.white,
                   ),
                 )),
                 buildMenuCrate(Icons.timelapse, "Kurz", context, MenuDuration("Kurz")),

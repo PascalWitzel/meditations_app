@@ -22,7 +22,7 @@ class MenuSound extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(child: Text("Wähle deine Meditation")),
+                Container(child: Text("Wähle den Sound zu deiner Meditation")),
                 buildMenuCrate(Icons.timelapse, "Stumm", context, ConfirmScreen(title + " - " + "Stumm")),
                 buildMenuCrate(Icons.timelapse, "Anleitung", context, ConfirmScreen(title + " - " + "Anleitung")),
                 buildMenuCrate(Icons.timelapse, "Musik", context, ConfirmScreen(title + " - " + "Musik")),

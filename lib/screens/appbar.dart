@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:meditations_app/screens/settingsScreen.dart';
 
@@ -58,10 +57,17 @@ AppBar appbarende(BuildContext context, String title) {
     ),
     leading: IconButton(
       icon: Icon(Icons.clear),
-      onPressed: () {
-        //Pop-Up einfügen
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => HomeScreen()));
+      onPressed: () async {
+        if (await confirm(
+          context,
+          title: Text('Meditation beenden'),
+          content: Text('Willst du die Meditation wirklich abbrechen?'),
+          textOK: Text('Ja'),
+          textCancel: Text('Nein'),
+
+        )) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        }
       },
     ),
     actions: [
