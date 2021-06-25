@@ -25,7 +25,7 @@ class meditationsScreen extends StatelessWidget {
             Center(
               child: Container(
                 margin: EdgeInsets.only(
-                    left: 0.0, top: 50.0, right: 0.0, bottom: 0.0),
+                    left: 0.0, top: 60.0, right: 0.0, bottom: 0.0),
                 child: Text(
                   mName,
                   style: TextStyle(
@@ -34,33 +34,48 @@ class meditationsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Center(
-              child: Container(
-                margin: EdgeInsets.only(
-                    left: 0.0, top: 230.0, right: 0.0, bottom: 0.0),
-                child: CircularProgressIndicator(
-                  strokeWidth: 200,
-                  value: mFortschritt,
-                ),
-              ),
-            ),
-            Center(
-              child: Text(
-                mDauer,
-                style: TextStyle(
-                  fontSize: 40,
-                ),
+            SizedBox(
+              height: 450.0,
+              width: 300.0,
+              child: Stack(
+                children: [
+                  Center(
+                    child: Container(
+                      width: 250,
+                      height: 250,
+                      child: new CircularProgressIndicator(
+                        strokeWidth: 30,
+                        value: mFortschritt,
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      mDauer,
+                      style: TextStyle(
+                        fontSize: 40,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: MediaQuery. of(context). size. width / 2.3, top: 150.0, right: 0.0, bottom: 0.0),
+                  width: 50,
+                ),
+                Container(
+                  width: 80,
+                  height: 80,
                   child: ElevatedButton(
                       onPressed: () {}, child: Icon(Icons.pause)),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 50.0, top: 150.0, right: 0.0, bottom: 0.0),
+                  width: 50,
+                  height: 50,
                   child: ElevatedButton(
                       onPressed: () {}, child: Icon(Icons.favorite_border)),
                 ),
