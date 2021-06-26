@@ -71,7 +71,7 @@ class meditationsScreen extends StatelessWidget {
                   width: 80,
                   height: 80,
                   child: ElevatedButton(
-                      onPressed: () {}, child: Icon(Icons.pause)),
+                        onPressed: () {}, child: Icon(Icons.pause)),
                 ),
                 Container(
                   width: 50,
