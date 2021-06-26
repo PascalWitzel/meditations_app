@@ -3,6 +3,7 @@ import 'appbar.dart';
 import 'favliste.dart';
 
 class settingsScreen extends StatelessWidget {
+  int thema = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +86,9 @@ class settingsScreen extends StatelessWidget {
                 width: 60,
                 height: 60,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    thema = 0;
+                  },
                   child: Text("1"),
                   style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
@@ -96,7 +99,9 @@ class settingsScreen extends StatelessWidget {
                 width: 60,
                 height: 60,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    thema = 1;
+                  },
                   child: Text("2"),
                   style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
@@ -107,7 +112,9 @@ class settingsScreen extends StatelessWidget {
                 width: 60,
                 height: 60,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    thema = 2;
+                  },
                   child: Text("3"),
                   style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
@@ -118,7 +125,9 @@ class settingsScreen extends StatelessWidget {
                 width: 60,
                 height: 60,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    thema = 3;
+                  },
                   child: Text("4"),
                   style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
