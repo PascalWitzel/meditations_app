@@ -132,6 +132,11 @@ class settingsScreen extends StatelessWidget {
             child: Column(
               children: [
                 Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(width: 0.5, color: Colors.black),
+                    ),
+                  ),
                   margin: EdgeInsets.only(
                       left: 0.0, top: 20.0, right: 0.0, bottom: 0.0),
                   child: Padding(
@@ -144,39 +149,67 @@ class settingsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    "Statistik 2",
-                    style: TextStyle(
-                      fontSize: 25,
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(width: 0.5, color: Colors.black),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "Statistik 2",
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    "Statistik 3",
-                    style: TextStyle(
-                      fontSize: 25,
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(width: 0.5, color: Colors.black),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "Statistik 3",
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    "Statistik 4",
-                    style: TextStyle(
-                      fontSize: 25,
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(width: 0.5, color: Colors.black),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "Statistik 4",
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    "Statistik 5",
-                    style: TextStyle(
-                      fontSize: 25,
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(width: 0.5, color: Colors.black),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "Statistik 5",
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
                     ),
                   ),
                 ),
