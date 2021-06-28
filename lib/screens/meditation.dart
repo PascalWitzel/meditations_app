@@ -2,9 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'appbar.dart';
 
-class meditationsScreen extends StatelessWidget {
+class meditationsScreen extends StatefulWidget {
+  @override
+  _meditationsScreenState createState() => _meditationsScreenState();
+}
+
+class _meditationsScreenState extends State<meditationsScreen> {
   String mName = "Name der Meditation";
+
   double mFortschritt = 0.7;
+
   String mDauer = "3:00";
 
   @override
