@@ -9,9 +9,7 @@ class meditationsScreen extends StatefulWidget {
 
 class _meditationsScreenState extends State<meditationsScreen> {
   String mName = "Name der Meditation";
-
   double mFortschritt = 0.7;
-
   String mDauer = "3:00";
 
   @override

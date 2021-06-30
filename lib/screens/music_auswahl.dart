@@ -55,6 +55,10 @@ class _musicScreenState extends State<musicScreen> {
                 onPressed: () {},
                   child: Icon(Icons.favorite_border),
                 ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Icon(Icons.arrow_forward_ios),
+                ),
               ],
             ),
           ),
