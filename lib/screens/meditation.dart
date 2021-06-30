@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'appbar.dart';
@@ -8,12 +10,47 @@ class meditationsScreen extends StatefulWidget {
 }
 
 class _meditationsScreenState extends State<meditationsScreen> {
+
   String mName = "Name der Meditation";
-  double mFortschritt = 0.7;
-  String mDauer = "3:00";
+  double mFortschritt = 1;
+  int mDauer = 120;
+
+  int pTimer = 0;
+  int mDauerInsgesamt = 120;
+  int sekundenDauer = 0;
+  int minutenDauer = 0;
+  Timer timer;
+
+  void startTimer() {
+    if (timer != null) {
+      timer.cancel();
+    }
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        if(pTimer % 2 == 0) {
+          Icon playTimer = Icon(Icons.play_arrow);
+          if (mDauer > 0) {
+            mDauer--;
+          } else {
+            timer.cancel();
+          }
+        } else {
+          Icon playTimer = Icon(Icons.pause);
+          timer.cancel();
+        }
+        //mFortschritt = (mDauerInsgesamt / mDauer / mDauerInsgesamt) as double;
+      });
+    });
+  }
+
+  /*void umrechnen() {
+    minutenDauer = mDauer % 60;
+    sekundenDauer = mDauer - (minutenDauer * 60);
+  }*/
 
   @override
   Widget build(BuildContext context) {
+    Icon playTimer = Icon(Icons.play_arrow);
     return Scaffold(
       appBar: appbarende(context, "Meditation"),
       body: Container(
@@ -31,12 +68,14 @@ class _meditationsScreenState extends State<meditationsScreen> {
               child: Container(
                 margin: EdgeInsets.only(
                     left: 0.0, top: 60.0, right: 0.0, bottom: 0.0),
-                child: Text(
-                  mName,
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
+                child: (mDauer > 0)
+                    ? Text("")
+                    : Text(
+                        "Done!",
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
               ),
             ),
             SizedBox(
@@ -56,9 +95,9 @@ class _meditationsScreenState extends State<meditationsScreen> {
                   ),
                   Center(
                     child: Text(
-                      mDauer,
+                      '$mDauer',
                       style: TextStyle(
-                        fontSize: 40,
+                        fontSize: 25,
                       ),
                     ),
                   ),
@@ -76,7 +115,8 @@ class _meditationsScreenState extends State<meditationsScreen> {
                   width: 80,
                   height: 80,
                   child: ElevatedButton(
-                        onPressed: () {}, child: Icon(Icons.pause)),
+                      onPressed: () => startTimer(),
+                      child: playTimer),
                 ),
                 Container(
                   width: 50,
