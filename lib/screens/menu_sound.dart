@@ -3,6 +3,7 @@ import 'package:meditations_app/screens/appbar.dart';
 
 import 'confirm_screen.dart';
 import 'menu_home.dart';
+import 'music_auswahl.dart';
 
 class MenuSound extends StatelessWidget {
 
@@ -25,7 +26,7 @@ class MenuSound extends StatelessWidget {
                 Container(child: Text("Wähle den Sound zu deiner Meditation")),
                 buildMenuCrate(Icons.timelapse, "Stumm", context, ConfirmScreen(title + " - " + "Stumm")),
                 buildMenuCrate(Icons.timelapse, "Anleitung", context, ConfirmScreen(title + " - " + "Anleitung")),
-                buildMenuCrate(Icons.timelapse, "Musik", context, ConfirmScreen(title + " - " + "Musik")),
+                buildMenuCrate(Icons.timelapse, "Musik", context, musicScreen(title + " - " + "Musik")),
               ],
             ),
           ]

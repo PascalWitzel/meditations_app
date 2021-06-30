@@ -2,14 +2,26 @@ import 'package:flutter/material.dart';
 
 import 'appbar.dart';
 
-class musicScreen extends StatelessWidget {
+class musicScreen extends StatefulWidget {
+  String title;
+
+  musicScreen(String t) {
+    this.title = t;
+  }
+
+  @override
+  _musicScreenState createState() => _musicScreenState();
+}
+
+class _musicScreenState extends State<musicScreen> {
   Icon musik = Icon(Icons.play_arrow);
+
   int play = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appbarback(context, "Favoriten"),
+      appBar: appbarback(context, widget.title),
       body: ListView(
         children: [
           Container(
@@ -28,12 +40,14 @@ class musicScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    play++;
-                    if(play % 2 == 0) {
-                      musik = Icon(Icons.pause);
-                    } else {
-                      musik = Icon(Icons.play_arrow);
-                    }
+                    setState(() {
+                      play++;
+                      if(play % 2 == 0) {
+                        musik = Icon(Icons.pause);
+                      } else {
+                        musik = Icon(Icons.play_arrow);
+                      }
+                    });
                   },
                   child: musik,
                 ),
