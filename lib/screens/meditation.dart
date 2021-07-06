@@ -1,7 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 import 'appbar.dart';
 
 class meditationsScreen extends StatefulWidget {
@@ -10,47 +9,15 @@ class meditationsScreen extends StatefulWidget {
 }
 
 class _meditationsScreenState extends State<meditationsScreen> {
-
   String mName = "Name der Meditation";
   double mFortschritt = 1;
   int mDauer = 120;
 
-  int pTimer = 0;
-  int mDauerInsgesamt = 120;
-  int sekundenDauer = 0;
-  int minutenDauer = 0;
-  Timer timer;
-
-  void startTimer() {
-    if (timer != null) {
-      timer.cancel();
-    }
-    timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        if(pTimer % 2 == 0) {
-          Icon playTimer = Icon(Icons.play_arrow);
-          if (mDauer > 0) {
-            mDauer--;
-          } else {
-            timer.cancel();
-          }
-        } else {
-          Icon playTimer = Icon(Icons.pause);
-          timer.cancel();
-        }
-        //mFortschritt = (mDauerInsgesamt / mDauer / mDauerInsgesamt) as double;
-      });
-    });
-  }
-
-  /*void umrechnen() {
-    minutenDauer = mDauer % 60;
-    sekundenDauer = mDauer - (minutenDauer * 60);
-  }*/
+  GlobalKey<ScaffoldState> _key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    Icon playTimer = Icon(Icons.play_arrow);
+    Icon playTimer = Icon(Icons.pause);
     return Scaffold(
       appBar: appbarende(context, "Meditation"),
       body: Container(
@@ -94,11 +61,18 @@ class _meditationsScreenState extends State<meditationsScreen> {
                     ),
                   ),
                   Center(
-                    child: Text(
-                      '$mDauer',
-                      style: TextStyle(
-                        fontSize: 25,
+                    child: SlideCountdownClock(
+                      duration: Duration(
+                        seconds: mDauer,
                       ),
+                      separator: ':',
+                      textStyle:
+                          TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+                      separatorTextStyle: TextStyle(
+                          fontSize: 36, fontWeight: FontWeight.normal),
+
+                      onDone: () => _key.currentState.showSnackBar(
+                          SnackBar(content: Text('Meditation beendet'))),
                     ),
                   ),
                 ],
@@ -115,8 +89,9 @@ class _meditationsScreenState extends State<meditationsScreen> {
                   width: 80,
                   height: 80,
                   child: ElevatedButton(
-                      onPressed: () => startTimer(),
-                      child: playTimer),
+                    //onPressed: () =>  startTimer(),
+                    child: playTimer,
+                  ),
                 ),
                 Container(
                   width: 50,
