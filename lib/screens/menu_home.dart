@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meditations_app/painter/curve_painter.dart';
+import 'package:meditations_app/routeAnimations/fade_route.dart';
 import 'package:meditations_app/screens/appbar.dart';
 
 import 'menu_duration.dart';
@@ -12,7 +13,7 @@ class HomeScreen extends StatelessWidget {
       appBar: appbarhome(context, "Meditation"),
       body: Container(
         child: CustomPaint(
-          painter: CurvePainter(),
+          painter: CurvePainter(0.5, 0.3),
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -20,15 +21,13 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Container(
                   child: Text(
-                  "Wähle die Kategorie deiner Meditation",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
+                  "Wähle die Kategorie deiner\nMeditation",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline1,
                 )),
-                buildMenuCrate(Icons.timelapse, "Kurz", context, MenuDuration("Kurz")),
-                buildMenuCrate(Icons.timelapse, "Mittel", context, MenuDuration("Mittel")),
-                buildMenuCrate(Icons.timelapse, "Lang", context, MenuDuration("Lang")),
+                buildMenuCrate(Icons.timelapse, "Kurz", context, FadeRoute(page: MenuDuration("Kurz"))),
+                buildMenuCrate(Icons.timelapse, "Mittel", context, FadeRoute(page: MenuDuration("Mittel"))),
+                buildMenuCrate(Icons.timelapse, "Lang", context, FadeRoute(page: MenuDuration("Lang"))),
               ],
             ),
           ]),
@@ -41,7 +40,7 @@ class HomeScreen extends StatelessWidget {
 Widget buildMenuCrate(IconData i, String text, context, route) {
   return GestureDetector(
     onTap: () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => route));
+      Navigator.push(context, route);
     },
     child: Container(
       height: 150,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditations_app/painter/curve_painter.dart';
 import 'package:meditations_app/screens/appbar.dart';
 
 import 'confirm_screen.dart';
@@ -17,19 +18,26 @@ class MenuSound extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appbarback(context, title),
-      body: Row(mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(child: Text("Wähle den Sound zu deiner Meditation")),
-                buildMenuCrate(Icons.timelapse, "Stumm", context, ConfirmScreen(title + " - " + "Stumm")),
-                buildMenuCrate(Icons.timelapse, "Anleitung", context, ConfirmScreen(title + " - " + "Anleitung")),
-                buildMenuCrate(Icons.timelapse, "Musik", context, musicScreen(title + " - " + "Musik")),
-              ],
-            ),
-          ]
+      body: CustomPaint(
+        painter: CurvePainter(0.9, 0.7),
+        child: Row(mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(child: Text(
+                      "Wähle den Ton während\nder Meditation",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline1
+                  )),
+                  buildMenuCrate(Icons.volume_off, "Stumm", context, MaterialPageRoute(builder: (context) => ConfirmScreen(title + " - " + "Stumm"))),
+                  buildMenuCrate(Icons.speaker_notes, "Anleitung", context, MaterialPageRoute(builder: (context) => ConfirmScreen(title + " - " + "Anleitung"))),
+                  buildMenuCrate(Icons.music_note, "Musik", context, MaterialPageRoute(builder: (context) => musicScreen(title + " - " + "Musik"))),
+                ],
+              ),
+            ]
+        ),
       ),
     );
   }
