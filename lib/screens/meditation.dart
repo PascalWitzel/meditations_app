@@ -1,23 +1,38 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 import 'appbar.dart';
+import 'dart:math' as math;
 
 class meditationsScreen extends StatefulWidget {
   @override
   _meditationsScreenState createState() => _meditationsScreenState();
 }
 
-class _meditationsScreenState extends State<meditationsScreen> {
+class _meditationsScreenState extends State<meditationsScreen>
+    with TickerProviderStateMixin {
   String mName = "Name der Meditation";
   double mFortschritt = 1;
-  int mDauer = 120;
+  int mDauer = 630;
 
-  GlobalKey<ScaffoldState> _key = GlobalKey();
+
+  AnimationController controller;
+
+  String get timerString {
+    Duration duration = controller.duration * controller.value;
+    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: mDauer),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    Icon playTimer = Icon(Icons.pause);
     return Scaffold(
       appBar: appbarende(context, "Meditation"),
       body: Container(
@@ -30,80 +45,127 @@ class _meditationsScreenState extends State<meditationsScreen> {
           ),
         ),
         child: Column(
-          children: [
-            Center(
+          children: <Widget>[
+            SizedBox(
+              height: 50,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Container(
-                margin: EdgeInsets.only(
-                    left: 0.0, top: 60.0, right: 0.0, bottom: 0.0),
-                child: (mDauer > 0)
-                    ? Text("")
-                    : Text(
-                        "Done!",
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      ),
+                child: Text(
+                  mName,
+                  style: TextStyle(fontSize: 25 ),
+                ),
               ),
             ),
             SizedBox(
-              height: 450.0,
-              width: 300.0,
-              child: Stack(
-                children: [
-                  Center(
-                    child: Container(
-                      width: 250,
-                      height: 250,
-                      child: new CircularProgressIndicator(
-                        strokeWidth: 30,
-                        value: mFortschritt,
+              height: 90,
+            ),
+            Container(
+              width: 300,
+              height: 300,
+              child: Center(
+                child: AspectRatio(
+                  aspectRatio: 1.0,
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned.fill(
+                        child: AnimatedBuilder(
+                          animation: controller,
+                          builder: (BuildContext context, Widget child) {
+                            return new CustomPaint(
+                                painter: TimerPainter(
+                              animation: controller,
+                              backgroundColor: Colors.white,
+                              color: Colors.pink,
+                            ));
+                          },
+                        ),
                       ),
-                    ),
-                  ),
-                  Center(
-                    child: SlideCountdownClock(
-                      duration: Duration(
-                        seconds: mDauer,
+                      Center(
+                        child: Center(
+                          child: AnimatedBuilder(
+                              animation: controller,
+                              builder: (BuildContext context, Widget child) {
+                                return new Text(
+                                  timerString,
+                                  style: TextStyle(fontSize: 70),
+                                );
+                              }),
+                        ),
                       ),
-                      separator: ':',
-                      textStyle:
-                          TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-                      separatorTextStyle: TextStyle(
-                          fontSize: 36, fontWeight: FontWeight.normal),
-
-                      onDone: () => _key.currentState.showSnackBar(
-                          SnackBar(content: Text('Meditation beendet'))),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 50,
-                ),
-                Container(
-                  width: 80,
-                  height: 80,
-                  child: ElevatedButton(
-                    //onPressed: () =>  startTimer(),
-                    child: playTimer,
+            SizedBox(
+              height: 50,
+            ),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  FloatingActionButton(
+                    child: AnimatedBuilder(
+                        animation: controller,
+                        builder: (BuildContext context, Widget child) {
+                          return new Icon(controller.isAnimating
+                              ? Icons.pause
+                              : Icons.play_arrow);
+                        }),
+                    onPressed: () {
+                      if (controller.isAnimating) {
+                        controller.stop();
+                      } else {
+                        controller.reverse(
+                            from: controller.value == 0.0
+                                ? 1.0
+                                : controller.value);
+                      }
+                    },
                   ),
-                ),
-                Container(
-                  width: 50,
-                  height: 50,
-                  child: ElevatedButton(
+                  ElevatedButton(
                       onPressed: () {}, child: Icon(Icons.favorite_border)),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
       ),
     );
+  }
+}
+
+class TimerPainter extends CustomPainter {
+  TimerPainter({
+    this.animation,
+    this.backgroundColor,
+    this.color,
+  }) : super(repaint: animation);
+
+  final Animation<double> animation;
+  final Color backgroundColor, color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = backgroundColor
+      ..strokeWidth = 10.0
+      ..strokeCap = StrokeCap.round
+      ..style = PaintingStyle.stroke;
+
+    canvas.drawCircle(size.center(Offset.zero), size.width / 2, paint);
+    paint.color = color;
+    double progress = (1.0 - animation.value) * 2 * math.pi;
+    canvas.drawArc(Offset.zero & size, math.pi * 1.5, progress, false, paint);
+
+  }
+
+  @override
+  bool shouldRepaint(TimerPainter old) {
+    return animation.value != old.animation.value ||
+        color != old.color ||
+        backgroundColor != old.backgroundColor;
   }
 }
