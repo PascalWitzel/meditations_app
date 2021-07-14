@@ -11,7 +11,7 @@ class meditationsScreen extends StatefulWidget {
 class _meditationsScreenState extends State<meditationsScreen>
     with TickerProviderStateMixin {
   String mName = "Name der Meditation";
-  int mDauer = 65;
+  int mDauer = 5;
 
   AnimationController controller;
 
@@ -102,11 +102,19 @@ class _meditationsScreenState extends State<meditationsScreen>
                                     style: TextStyle(fontSize: 70),
                                   );
                                 } else {
-                                  return new Text(
-                                    "Meditation beendet",
-                                    style: TextStyle(fontSize: 50),
-                                    textAlign: TextAlign.center,
-                                  ); //TODO kontrolle ob der Text nur beim Beenden kommt oder auch beim Pausieren
+                                  if(controller.isDismissed) {
+                                    return new Text(
+                                      "Meditation beendet",
+                                      style: TextStyle(fontSize: 50),
+                                      textAlign: TextAlign.center,
+                                    );
+                                  } else {
+                                    return new Text(
+                                      "Meditation pausiert",
+                                      style: TextStyle(fontSize: 50),
+                                      textAlign: TextAlign.center,
+                                    );
+                                  }
                                 }
                               }),
                         ),
