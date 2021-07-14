@@ -11,15 +11,15 @@ class meditationsScreen extends StatefulWidget {
 class _meditationsScreenState extends State<meditationsScreen>
     with TickerProviderStateMixin {
   String mName = "Name der Meditation";
-  double mFortschritt = 1;
-  int mDauer = 630;
-
+  int mDauer = 5;
 
   AnimationController controller;
 
   String get timerString {
     Duration duration = controller.duration * controller.value;
-    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+    if (controller.isAnimating) {
+      return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+    }
   }
 
   @override
@@ -29,6 +29,7 @@ class _meditationsScreenState extends State<meditationsScreen>
       vsync: this,
       duration: Duration(seconds: mDauer),
     );
+    controller.reverse(from: controller.value == 0.0 ? 1.0 : controller.value);
   }
 
   @override
@@ -54,7 +55,7 @@ class _meditationsScreenState extends State<meditationsScreen>
               child: Container(
                 child: Text(
                   mName,
-                  style: TextStyle(fontSize: 25 ),
+                  style: TextStyle(fontSize: 25),
                 ),
               ),
             ),
@@ -87,10 +88,18 @@ class _meditationsScreenState extends State<meditationsScreen>
                           child: AnimatedBuilder(
                               animation: controller,
                               builder: (BuildContext context, Widget child) {
-                                return new Text(
-                                  timerString,
-                                  style: TextStyle(fontSize: 70),
-                                );
+                                if (controller.isAnimating) {
+                                  return new Text(
+                                    timerString,
+                                    style: TextStyle(fontSize: 70),
+                                  );
+                                } else {
+                                  return new Text(
+                                    "Meditation beendet",
+                                    style: TextStyle(fontSize: 50),
+                                    textAlign: TextAlign.center,
+                                  );
+                                }
                               }),
                         ),
                       ),
@@ -106,27 +115,40 @@ class _meditationsScreenState extends State<meditationsScreen>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  FloatingActionButton(
-                    child: AnimatedBuilder(
-                        animation: controller,
-                        builder: (BuildContext context, Widget child) {
-                          return new Icon(controller.isAnimating
-                              ? Icons.pause
-                              : Icons.play_arrow);
-                        }),
-                    onPressed: () {
-                      if (controller.isAnimating) {
-                        controller.stop();
-                      } else {
-                        controller.reverse(
-                            from: controller.value == 0.0
-                                ? 1.0
-                                : controller.value);
-                      }
-                    },
+                  Container(width: 50, height: 50,),
+                  Container(
+                    width: 75,
+                    height: 75,
+                    child: FittedBox(
+                      child: FloatingActionButton(
+                        child: AnimatedBuilder(
+                            animation: controller,
+                            builder: (BuildContext context, Widget child) {
+                              return new Icon(controller.isAnimating
+                                  ? Icons.pause
+                                  : Icons.play_arrow);
+                            }),
+                        onPressed: () {
+                          if (controller.isAnimating) {
+                            controller.stop();
+                          } else {
+                            controller.reverse(
+                                from: controller.value == 0.0
+                                    ? 1.0
+                                    : controller.value);
+                          }
+                        },
+                      ),
+                    ),
                   ),
-                  ElevatedButton(
-                      onPressed: () {}, child: Icon(Icons.favorite_border)),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    child: FittedBox(
+                      child: FloatingActionButton(
+                          onPressed: () {}, child: Icon(Icons.favorite_border)),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -159,7 +181,6 @@ class TimerPainter extends CustomPainter {
     paint.color = color;
     double progress = (1.0 - animation.value) * 2 * math.pi;
     canvas.drawArc(Offset.zero & size, math.pi * 1.5, progress, false, paint);
-
   }
 
   @override
