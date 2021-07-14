@@ -49,7 +49,7 @@ class settingsScreen extends StatelessWidget {
             children: [
               Container(
                 width: 120,
-                height: 60,
+                height: 40,
                 child: ElevatedButton(
                   onPressed: () {},
                   child: Text("Speichern"),
@@ -57,7 +57,7 @@ class settingsScreen extends StatelessWidget {
               ),
               Container(
                 width: 120,
-                height: 60,
+                height: 40,
                 child: ElevatedButton(
                   onPressed: () {},
                   child: Text("Verwerfen"),
@@ -69,7 +69,7 @@ class settingsScreen extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: Container(
               margin: EdgeInsets.only(
-                  left: 0.0, top: 20.0, right: 0.0, bottom: 0.0),
+                  left: 0.0, top: 25.0, right: 0.0, bottom: 5.0),
               child: Text(
                 "Farbauswahl",
                 style: TextStyle(

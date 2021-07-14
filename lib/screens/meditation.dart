@@ -11,14 +11,22 @@ class meditationsScreen extends StatefulWidget {
 class _meditationsScreenState extends State<meditationsScreen>
     with TickerProviderStateMixin {
   String mName = "Name der Meditation";
-  int mDauer = 5;
+  int mDauer = 65;
 
   AnimationController controller;
 
   String get timerString {
     Duration duration = controller.duration * controller.value;
     if (controller.isAnimating) {
-      return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+      if(duration.inHours < 1) {
+        return '${duration.inMinutes}:${(duration.inSeconds % 60)
+            .toString()
+            .padLeft(2, '0')}';
+      } else {
+        return '${duration.inHours}:${(duration.inMinutes % 60).toString().padLeft(2, '0')}:${(duration.inSeconds % 60)
+            .toString()
+            .padLeft(2, '0')}';
+      }
     }
   }
 
@@ -98,7 +106,7 @@ class _meditationsScreenState extends State<meditationsScreen>
                                     "Meditation beendet",
                                     style: TextStyle(fontSize: 50),
                                     textAlign: TextAlign.center,
-                                  );
+                                  ); //TODO kontrolle ob der Text nur beim Beenden kommt oder auch beim Pausieren
                                 }
                               }),
                         ),
@@ -127,7 +135,7 @@ class _meditationsScreenState extends State<meditationsScreen>
                               return new Icon(controller.isAnimating
                                   ? Icons.pause
                                   : Icons.play_arrow);
-                            }),
+                            }), //TODO Controlle ob der Button sich ändert
                         onPressed: () {
                           if (controller.isAnimating) {
                             controller.stop();
