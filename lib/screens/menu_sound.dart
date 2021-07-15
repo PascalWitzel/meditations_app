@@ -33,7 +33,7 @@ class MenuSound extends StatelessWidget {
                   )),
                   buildMenuCrate(Icons.volume_off, "Stumm", context, MaterialPageRoute(builder: (context) => ConfirmScreen(title + " - " + "Stumm"))),
                   buildMenuCrate(Icons.speaker_notes, "Anleitung", context, MaterialPageRoute(builder: (context) => ConfirmScreen(title + " - " + "Anleitung"))),
-                  buildMenuCrate(Icons.music_note, "Musik", context, MaterialPageRoute(builder: (context) => musicScreen(title + " - " + "Musik"))),
+                  buildMenuCrate(Icons.music_note, "Musik", context, MaterialPageRoute(builder: (context) => musicScreen(title))),
                 ],
               ),
             ]

@@ -44,7 +44,7 @@ class ConfirmScreen extends StatelessWidget {
                     children: [
                       Icon(Icons.category),
                       Icon(Icons.timelapse),
-                      Icon(Icons.headphones),
+                      Icon(Icons.volume_up),
                     ],
                   ),
                   Column(
