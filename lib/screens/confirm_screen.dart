@@ -60,7 +60,7 @@ class ConfirmScreen extends StatelessWidget {
             ),
             SizedBox(height: 30,),
             ElevatedButton(onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => meditationsScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => meditationsScreen(category, length)));
             }, child: Text("Starten")),
             ElevatedButton(onPressed: () {
               Navigator.pop(context);

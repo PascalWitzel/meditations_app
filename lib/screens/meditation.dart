@@ -4,6 +4,15 @@ import 'appbar.dart';
 import 'dart:math' as math;
 
 class meditationsScreen extends StatefulWidget {
+
+  String category;
+  String duration;
+
+  meditationsScreen(String c, String d) {
+    this.category = c;
+    this.duration = d.split(":")[0];
+  }
+
   @override
   _meditationsScreenState createState() => _meditationsScreenState();
 }
@@ -11,7 +20,7 @@ class meditationsScreen extends StatefulWidget {
 class _meditationsScreenState extends State<meditationsScreen>
     with TickerProviderStateMixin {
   String mName = "Name der Meditation";
-  int mDauer = 5;
+  //int mDauer = 0; Wird jetzt direkt im initState auf die Dauer aus dem Confirm Screen gesetzt
 
   AnimationController controller;
 
@@ -35,7 +44,7 @@ class _meditationsScreenState extends State<meditationsScreen>
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: mDauer),
+      duration: Duration(minutes: int.parse(widget.duration)),
     );
     controller.reverse(from: controller.value == 0.0 ? 1.0 : controller.value);
   }
