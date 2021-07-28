@@ -1,9 +1,35 @@
 import 'package:flutter/material.dart';
 import 'appbar.dart';
 import 'favliste.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class settingsScreen extends StatelessWidget {
+class settingsScreen extends StatefulWidget {
+  @override
+  _settingsScreenState createState() => _settingsScreenState();
+}
+
+class _settingsScreenState extends State<settingsScreen> {
   int thema = 0;
+  TextEditingController _controller = TextEditingController(text: "Test");
+
+  Future<void> _setStringSharedPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("Name", _controller.text);
+  }
+
+  Future<String> _getStringFromSharedPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString("Name") ?? "Test";
+  }
+
+  @override
+  void initState() {
+   super.initState();
+    _getStringFromSharedPref().then((s) {
+      _controller.text = s;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +64,7 @@ class settingsScreen extends StatelessWidget {
                     left: 0.0, top: 20.0, right: 0.0, bottom: 0.0),
                 width: 320,
                 child: TextField(
+                  controller: _controller,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), hintText: 'Name'),
                 ),
@@ -51,7 +78,10 @@ class settingsScreen extends StatelessWidget {
                 width: 120,
                 height: 40,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => {
+                    _controller.text,
+                    _setStringSharedPref(),
+                  },
                   child: Text("Speichern"),
                 ),
               ),
@@ -59,7 +89,10 @@ class settingsScreen extends StatelessWidget {
                 width: 120,
                 height: 40,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => {
+                    _controller.text = "Name",
+                    _setStringSharedPref(),
+                  },
                   child: Text("Verwerfen"),
                 ),
               ),
