@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'appbar.dart';
 import 'dart:math' as math;
 
+
 class meditationsScreen extends StatefulWidget {
 
   String category;
@@ -152,7 +153,7 @@ class _meditationsScreenState extends State<meditationsScreen>
                               return new Icon(controller.isAnimating
                                   ? Icons.pause
                                   : Icons.play_arrow);
-                            }), //TODO Controlle ob der Button sich ändert
+                            }),
                         onPressed: () {
                           if (controller.isAnimating) {
                             controller.stop();
