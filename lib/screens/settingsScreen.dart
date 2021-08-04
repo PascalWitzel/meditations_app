@@ -40,209 +40,240 @@ class _settingsScreenState extends State<settingsScreen> {
 
     return Scaffold(
       appBar: appbarback(context, "Settings"),
-      body: Column(
-        children: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
               child: Container(
-                margin: EdgeInsets.only(
-                    left: 0.0, top: 20.0, right: 0.0, bottom: 0.0),
-                width: 320,
-                child: TextField(
-                  controller: _controller,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), hintText: 'Name'),
-                ),
-              ),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                width: 120,
-                height: 40,
-                child: ElevatedButton(
-                  onPressed: () => {
-                    _controller.text,
-                    _setStringSharedPref(),
-                  },
-                  child: Text("Speichern"),
-                ),
-              ),
-              Container(
-                width: 120,
-                height: 40,
-                child: ElevatedButton(
-                  onPressed: () => {
-                    _controller.text = "Name",
-                    _setStringSharedPref(),
-                  },
-                  child: Text("Verwerfen"),
-                ),
-              ),
-            ],
-          ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Container(
-                margin: EdgeInsets.only(
-                    left: 0.0, top: 20.0, right: 0.0, bottom: 0.0),
-                width: 320,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => favlisteScreen()));
-                  },
-                  child: Text("Favoriten"),
-                ),
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(
-                left: 0.0, top: 20.0, right: 0.0, bottom: 5.0),
-            child: Text(
-              "Farbauswahl",
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 60,
-                height: 60,
-                child: ElevatedButton(
-                  onPressed: () {
-                    themeNotifier.setTheme(blueTheme, "blueTheme");
-                  },
-                  child: _getIcon(themeNotifier, blueTheme),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blue,
-                    shape: CircleBorder(),
-                  ),
-                ),
-              ),
-              Container(
-                width: 60,
-                height: 60,
-                child: ElevatedButton(
-                  onPressed: () {
-                    themeNotifier.setTheme(orangeTheme, "orangeTheme");
-                  },
-                  child: _getIcon(themeNotifier, orangeTheme),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.orange,
-                    shape: CircleBorder(),
-                  ),
-                ),
-              ),
-              Container(
-                width: 60,
-                height: 60,
-                child: ElevatedButton(
-                  onPressed: () {
-                    themeNotifier.setTheme(greenTheme, "greenTheme");
-                  },
-                  child: _getIcon(themeNotifier, greenTheme),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.lightGreen,
-                    shape: CircleBorder(),
-                  ),
-                ),
-              ),
-              Container(
-                width: 60,
-                height: 60,
-                child: ElevatedButton(
-                  onPressed: () {
-                    themeNotifier.setTheme(purpleTheme, "purpleTheme");
-                  },
-                  child: _getIcon(themeNotifier, purpleTheme),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.deepPurple,
-                    shape: CircleBorder(),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Container(
+                width: MediaQuery.of(context).size.width * 0.9,
                 decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(width: 0.5, color: Colors.black),
+                  border: Border.all(
+                    color: Theme.of(context).primaryColor,
+                    width: 2.0,
                   ),
                 ),
-                margin: EdgeInsets.only(
-                    left: 0.0, top: 20.0, right: 0.0, bottom: 0.0),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    "Statistik 1",
-                    style: TextStyle(
-                      fontSize: 25,
+                child: Column(
+                children: [
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        margin: EdgeInsets.only(top: 5.0),
+                        width: 320,
+                        child: TextField(
+                          controller: _controller,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(), hintText: 'Name', focusColor: Theme.of(context).primaryColor),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        width: 120,
+                        height: 40,
+                        child: ElevatedButton(
+                          onPressed: () => {
+                            _controller.text,
+                            _setStringSharedPref(),
+                          },
+                          child: Text("Speichern"),
+                        ),
+                      ),
+                      Container(
+                        width: 120,
+                        height: 40,
+                        child: ElevatedButton(
+                          onPressed: () => {
+                            _controller.text = "Name",
+                            _setStringSharedPref(),
+                          },
+                          child: Text("Verwerfen"),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20.0)
+                ]),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(width: 0.5, color: Colors.black),
+            ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  margin: EdgeInsets.only(
+                      left: 0.0, top: 20.0, right: 0.0, bottom: 20.0),
+                  width: 320,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => favlisteScreen()));
+                    },
+                    child: Text("Favoriten"),
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    "Statistik 2",
-                    style: TextStyle(
-                      fontSize: 25,
-                    ),
-                  ),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.9,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Theme.of(context).primaryColor,
+                  width: 2.0,
                 ),
               ),
-              Container(
-                height: 25,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              child: Column(
                 children: [
                   Container(
-                    width: 170,
-                    height: 170,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => wasIstMeditation()));
-                        },
-                        child: Text("Was ist Meditation?"),
-                        ),
+                    margin: EdgeInsets.only(
+                        left: 0.0, top: 10.0, right: 0.0, bottom: 10.0),
+                    child: Text(
+                      "Farbauswahl",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
                   ),
-                  Container(
-                    width: 170,
-                    height: 170,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => wieGehtMeditation()));
-                        },
-                        child: Text("Wie geht Meditation?"),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 60,
+                        height: 60,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            themeNotifier.setTheme(blueTheme, "blueTheme");
+                          },
+                          child: _getIcon(themeNotifier, blueTheme),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.blue,
+                            shape: CircleBorder(),
+                          ),
                         ),
+                      ),
+                      Container(
+                        width: 60,
+                        height: 60,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            themeNotifier.setTheme(orangeTheme, "orangeTheme");
+                          },
+                          child: _getIcon(themeNotifier, orangeTheme),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.orange,
+                            shape: CircleBorder(),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 60,
+                        height: 60,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            themeNotifier.setTheme(greenTheme, "greenTheme");
+                          },
+                          child: _getIcon(themeNotifier, greenTheme),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.lightGreen,
+                            shape: CircleBorder(),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 60,
+                        height: 60,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            themeNotifier.setTheme(purpleTheme, "purpleTheme");
+                          },
+                          child: _getIcon(themeNotifier, purpleTheme),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.deepPurple,
+                            shape: CircleBorder(),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
+                  SizedBox(height: 10.0),
                 ],
               ),
-            ],
-          ),
-        ],
+            ),
+            Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(width: 0.5, color: Colors.black),
+                    ),
+                  ),
+                  margin: EdgeInsets.only(
+                      left: 0.0, top: 20.0, right: 0.0, bottom: 0.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "Statistik 1",
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(width: 0.5, color: Colors.black),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "Statistik 2",
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 25,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      width: 170,
+                      height: 170,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => wasIstMeditation()));
+                          },
+                          child: Text("Was ist Meditation?"),
+                          ),
+                    ),
+                    Container(
+                      width: 170,
+                      height: 170,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => wieGehtMeditation()));
+                          },
+                          child: Text("Wie geht Meditation?"),
+                          ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -12,12 +12,15 @@ AppBar appbarhome(BuildContext context, String title) {
     ),
     leading: Icon(Icons.house),
     actions: [
-      GestureDetector(
-        child: Icon(Icons.settings),
-        onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => settingsScreen()));
-        },
+      Padding(
+        padding: const EdgeInsets.only(right: 12.0),
+        child: GestureDetector(
+          child: Icon(Icons.settings),
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => settingsScreen()));
+          },
+        ),
       )
     ],
   );
@@ -38,12 +41,15 @@ AppBar appbarback(BuildContext context, String title) {
       },
     ),
     actions: [
-      GestureDetector(
-        child: Icon(Icons.settings),
-        onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => settingsScreen()));
-        },
+      Padding(
+        padding: const EdgeInsets.only(right: 12.0),
+        child: GestureDetector(
+          child: Icon(Icons.settings),
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => settingsScreen()));
+          },
+        ),
       )
     ],
   );
@@ -64,19 +70,21 @@ AppBar appbarende(BuildContext context, String title) {
           content: Text('Willst du die Meditation wirklich abbrechen?'),
           textOK: Text('Ja'),
           textCancel: Text('Nein'),
-
         )) {
           Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
         }
       },
     ),
     actions: [
-      GestureDetector(
-        child: Icon(Icons.settings),
-        onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => settingsScreen()));
-        },
+      Padding(
+        padding: const EdgeInsets.only(right: 12.0),
+        child: GestureDetector(
+          child: Icon(Icons.settings),
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => settingsScreen()));
+          },
+        ),
       )
     ],
   );
