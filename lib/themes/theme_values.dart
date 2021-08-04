@@ -41,5 +41,5 @@ final greenTheme = ThemeData(
 /// ----  Purple Theme  ----
 final purpleTheme = ThemeData(
   primarySwatch: Colors.deepPurple,
-  textTheme: darkTextTheme,
+  textTheme: lightTextTheme,
 );

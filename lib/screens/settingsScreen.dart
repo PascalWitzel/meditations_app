@@ -123,10 +123,11 @@ class _settingsScreenState extends State<settingsScreen> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: () {
-                    themeNotifier.setTheme(blueTheme);
+                    themeNotifier.setTheme(blueTheme, "blueTheme");
                   },
-                  child: Text("1"),
+                  child: _getIcon(themeNotifier, blueTheme),
                   style: ElevatedButton.styleFrom(
+                    primary: Colors.blue,
                     shape: CircleBorder(),
                   ),
                 ),
@@ -136,10 +137,11 @@ class _settingsScreenState extends State<settingsScreen> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: () {
-                    themeNotifier.setTheme(orangeTheme);
+                    themeNotifier.setTheme(orangeTheme, "orangeTheme");
                   },
-                  child: Text("2"),
+                  child: _getIcon(themeNotifier, orangeTheme),
                   style: ElevatedButton.styleFrom(
+                    primary: Colors.orange,
                     shape: CircleBorder(),
                   ),
                 ),
@@ -149,10 +151,11 @@ class _settingsScreenState extends State<settingsScreen> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: () {
-                    themeNotifier.setTheme(greenTheme);
+                    themeNotifier.setTheme(greenTheme, "greenTheme");
                   },
-                  child: Text("3"),
+                  child: _getIcon(themeNotifier, greenTheme),
                   style: ElevatedButton.styleFrom(
+                    primary: Colors.lightGreen,
                     shape: CircleBorder(),
                   ),
                 ),
@@ -162,10 +165,11 @@ class _settingsScreenState extends State<settingsScreen> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: () {
-                    themeNotifier.setTheme(purpleTheme);
+                    themeNotifier.setTheme(purpleTheme, "purpleTheme");
                   },
-                  child: Text("4"),
+                  child: _getIcon(themeNotifier, purpleTheme),
                   style: ElevatedButton.styleFrom(
+                    primary: Colors.deepPurple,
                     shape: CircleBorder(),
                   ),
                 ),
@@ -239,6 +243,19 @@ class _settingsScreenState extends State<settingsScreen> {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _getIcon(ThemeNotifier themeNotifier, buttonThemeData) {
+    bool selected = (themeNotifier.getTheme() == buttonThemeData);
+
+    return Container(
+      key: Key((selected) ? "ON" : "OFF"),
+      child: Icon(
+        (selected) ? Icons.done : Icons.close,
+        color: Theme.of(context).textTheme.headline1.color,
+        size: 20.0,
       ),
     );
   }

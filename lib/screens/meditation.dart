@@ -118,7 +118,7 @@ class _meditationsScreenState extends State<meditationsScreen>
                                 painter: TimerPainter(
                               animation: controller,
                               backgroundColor: Colors.white,
-                              color: Colors.pink,
+                              color: Theme.of(context).primaryColor,
                             ));
                           },
                         ),
@@ -181,7 +181,9 @@ class _meditationsScreenState extends State<meditationsScreen>
                             }),
                         onPressed: () {
                           if (controller.isAnimating) {
-                            controller.stop();
+                            setState(() {
+                              controller.stop();
+                            });
                           } else {
                             controller.reverse(
                                 from: controller.value == 0.0
