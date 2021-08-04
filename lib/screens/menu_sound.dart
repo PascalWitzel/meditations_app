@@ -19,7 +19,7 @@ class MenuSound extends StatelessWidget {
     return Scaffold(
       appBar: appbarback(context, title),
       body: CustomPaint(
-        painter: CurvePainter(0.9, 0.7),
+        painter: CurvePainter(0.9, 0.7, context),
         child: Row(mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(

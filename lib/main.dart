@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:meditations_app/screens/menu_home.dart';
+import 'package:meditations_app/themes/theme_notifier.dart';
+import 'package:meditations_app/themes/theme_values.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider<ThemeNotifier>(
+      create: (_) => ThemeNotifier(blueTheme), child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: TextTheme(
-          headline1: GoogleFonts.nunito(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-            fontSize: 22,
-
-          ),
-        ),
-      ),
+      theme: themeNotifier.getTheme(),
       home: HomeScreen(),
     );
   }

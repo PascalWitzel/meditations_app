@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:meditations_app/themes/theme_notifier.dart';
+import 'package:meditations_app/themes/theme_values.dart';
+import 'package:provider/provider.dart';
 import 'appbar.dart';
 import 'favliste.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +12,7 @@ class settingsScreen extends StatefulWidget {
 }
 
 class _settingsScreenState extends State<settingsScreen> {
+
   int thema = 0;
   TextEditingController _controller = TextEditingController(text: "Test");
 
@@ -32,6 +36,9 @@ class _settingsScreenState extends State<settingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+
     return Scaffold(
       appBar: appbarback(context, "Settings"),
       body: Column(
@@ -120,7 +127,7 @@ class _settingsScreenState extends State<settingsScreen> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: () {
-                    thema = 0;
+                    themeNotifier.setTheme(blueTheme);
                   },
                   child: Text("1"),
                   style: ElevatedButton.styleFrom(
@@ -133,7 +140,7 @@ class _settingsScreenState extends State<settingsScreen> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: () {
-                    thema = 1;
+                    themeNotifier.setTheme(orangeTheme);
                   },
                   child: Text("2"),
                   style: ElevatedButton.styleFrom(
@@ -146,7 +153,7 @@ class _settingsScreenState extends State<settingsScreen> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: () {
-                    thema = 2;
+                    themeNotifier.setTheme(greenTheme);
                   },
                   child: Text("3"),
                   style: ElevatedButton.styleFrom(
@@ -159,7 +166,7 @@ class _settingsScreenState extends State<settingsScreen> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: () {
-                    thema = 3;
+                    themeNotifier.setTheme(purpleTheme);
                   },
                   child: Text("4"),
                   style: ElevatedButton.styleFrom(

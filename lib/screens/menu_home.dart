@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
       appBar: appbarhome(context, "Meditation"),
       body: Container(
         child: CustomPaint(
-          painter: CurvePainter(0.5, 0.3),
+          painter: CurvePainter(0.5, 0.3, context),
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,

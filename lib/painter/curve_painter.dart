@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:meditations_app/themes/theme_notifier.dart';
+import 'package:provider/provider.dart';
 
 class CurvePainter extends CustomPainter {
+  var themeNotifier = null;
   double a, b;
+  Color color = null;
 
-  CurvePainter(double a, double b) {
+  CurvePainter(double a, double b, context) {
     this.a = a;
     this.b = b;
+    this.themeNotifier = Provider.of<ThemeNotifier>(context);
+    color = Theme.of(context).primaryColor;
   }
 
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint();
-    paint.color = Colors.lightBlue;
+    paint.color = color;
     paint.style = PaintingStyle.fill;
 
     var path = Path();

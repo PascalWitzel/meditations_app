@@ -33,7 +33,7 @@ class MenuDuration extends StatelessWidget {
     return Scaffold(
       appBar: appbarback(context, title),
       body: CustomPaint(
-        painter: CurvePainter(0.7, 0.5),
+        painter: CurvePainter(0.7, 0.5, context),
         child: Row(mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(
