@@ -11,25 +11,26 @@ class _favlisteScreenState extends State<favlisteScreen> {
   String category = "";
   String length = "";
   String sound = "";
-  String favMed = "";
-  int icon = 0;
+  String setFavMed = "";
+  String getFavMed = "";
 
 
   Future<void> _setStringSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("favMed", favMed);
+    prefs.setString('favourite', setFavMed);
   }
 
   Future<String> _getStringFromSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString("favMed") ?? "Test";
+    getFavMed = prefs.getString('favourite') ?? "nop";
+    return getFavMed;
   }
 
   @override
   void initState() {
     super.initState();
     _getStringFromSharedPref().then((s) {
-      favMed = s;
+      getFavMed = s;
     });
   }
 
@@ -59,12 +60,11 @@ class _favlisteScreenState extends State<favlisteScreen> {
                   width: 50,
                   child: ElevatedButton(
                     onPressed: () => {
-                      favMed = "Kurz 3:00 Stumm",
+                      setFavMed = "Kurz 3:00 Stumm",
                       _setStringSharedPref(),
                       print("Done1"),
-                      icon = 1,
                     },
-                    child: new Icon(icon == 1
+                    child: new Icon(_getStringFromSharedPref() == "Kurz 3:00 Stumm"
                       ? Icons.favorite
                       : Icons.favorite_border),
                   ),
@@ -92,12 +92,11 @@ class _favlisteScreenState extends State<favlisteScreen> {
                   width: 50,
                   child: ElevatedButton(
                     onPressed: () => {
-                      favMed = "Kurz 5:00 Stumm",
+                      setFavMed = "Kurz 5:00 Stumm",
                       _setStringSharedPref(),
                       print("Done2"),
-                      icon = 2,
                     },
-                    child: new Icon(icon == 2
+                    child: new Icon(_getStringFromSharedPref() == "Kurz 5:00 Stumm"
                         ? Icons.favorite
                         : Icons.favorite_border),
                   ),
@@ -125,12 +124,11 @@ class _favlisteScreenState extends State<favlisteScreen> {
                   width: 50,
                   child: ElevatedButton(
                     onPressed: () => {
-                      favMed = "Kurz 7:00 Stumm",
+                      setFavMed = "Kurz 7:00 Stumm",
                       _setStringSharedPref(),
                       print("Done3"),
-                      icon = 3,
                     },
-                    child: new Icon(icon == 3
+                    child: new Icon(_getStringFromSharedPref() == "Kurz 7:00 Stumm"
                         ? Icons.favorite
                         : Icons.favorite_border),
                   ),
@@ -143,7 +141,7 @@ class _favlisteScreenState extends State<favlisteScreen> {
             child: ElevatedButton(
               onPressed: () => {
                 _getStringFromSharedPref(),
-                print(favMed),
+                print(getFavMed),
               },
             ),
           ),

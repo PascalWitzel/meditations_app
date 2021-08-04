@@ -64,10 +64,7 @@ class _musicScreenState extends State<musicScreen> {
                     },
                     child: musik,
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Icon(Icons.favorite_border),
-                  ),
+
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ConfirmScreen(widget.title + " - " + songs[index])));
