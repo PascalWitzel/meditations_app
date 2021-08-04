@@ -57,6 +57,7 @@ Widget buildMenuCrate(IconData i, String text, context, route) {
         ),
         Text(
           text,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 18,
           ),

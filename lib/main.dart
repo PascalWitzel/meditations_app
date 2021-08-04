@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meditations_app/screens/menu_home.dart';
+import 'package:meditations_app/screens/welcome_screen.dart';
 import 'package:meditations_app/themes/theme_notifier.dart';
 import 'package:meditations_app/themes/theme_values.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: themeNotifier.getTheme(),
-      home: HomeScreen(),
+      home: WelcomeScreen(),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:meditations_app/screens/settingsScreen.dart';
+import 'package:meditations_app/screens/welcome_screen.dart';
 
 import 'menu_home.dart';
 
@@ -10,7 +11,13 @@ AppBar appbarhome(BuildContext context, String title) {
     title: Text(
       title,
     ),
-    leading: Icon(Icons.house),
+    leading: GestureDetector(
+      child: Icon(Icons.house),
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => WelcomeScreen()));
+      }
+    ),
     actions: [
       Padding(
         padding: const EdgeInsets.only(right: 12.0),

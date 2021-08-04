@@ -20,54 +20,68 @@ class ConfirmScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle confirmText = TextStyle(fontFamily: Theme.of(context).textTheme.headline1.fontFamily, fontSize: 18);
     return Scaffold(
       appBar: appbarback(context, "Bestätigen"),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                Theme.of(context).primaryColor,
+                Theme.of(context).accentColor,
+              ],
+            )
+        ),
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: 200,
-              height: 200,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black87, width: 2),
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
+            Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 250,
+                height: 200,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black87, width: 2.5),
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(Icons.category, size: 30,),
+                        Icon(Icons.timelapse, size: 30,),
+                        Icon(Icons.volume_up, size: 30,),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(category, style: confirmText),
+                        Text(length, style: confirmText),
+                        Text(sound, style: confirmText),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(Icons.category),
-                      Icon(Icons.timelapse),
-                      Icon(Icons.volume_up),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(category),
-                      Text(length),
-                      Text(sound),
-                    ],
-                  ),
-                ],
-              ),
+              SizedBox(height: 30,),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => meditationsScreen(category, length, sound)));
+                }, child: Text("Starten")),
+              ElevatedButton(onPressed: () {
+                Navigator.pop(context);
+              }, child: Text("Zurück")),
+            ],
             ),
-            SizedBox(height: 30,),
-            ElevatedButton(onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => meditationsScreen(category, length, sound)));
-            }, child: Text("Starten")),
-            ElevatedButton(onPressed: () {
-              Navigator.pop(context);
-            }, child: Text("Zurück")),
-          ],
-          ),
-        ]
+          ]
+        ),
       ),
     );
   }
