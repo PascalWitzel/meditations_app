@@ -15,6 +15,8 @@ class settingsScreen extends StatefulWidget {
 
 class _settingsScreenState extends State<settingsScreen> {
   TextEditingController _controller = TextEditingController(text: "Test");
+  int anzMed = 0;
+  int dauerMed = 0;
 
   Future<void> _setStringSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -26,12 +28,32 @@ class _settingsScreenState extends State<settingsScreen> {
     return prefs.getString("Name") ?? "Test";
   }
 
+  Future<int> _getIntSharedPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    anzMed = prefs.getInt('anzahl') ?? -1;
+    return anzMed;
+  }
+
+  Future<int> _getDauerIntSharedPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    dauerMed =prefs.getInt('dauer') ?? -1;
+    return dauerMed;
+  }
+
   @override
   void initState() {
     super.initState();
     _getStringFromSharedPref().then((s) {
       _controller.text = s;
     });
+    _getIntSharedPref().then((a) {
+      anzMed = a;
+    });
+    _getDauerIntSharedPref().then((d) {
+      dauerMed = d;
+    });
+    _getIntSharedPref();
+    _getDauerIntSharedPref();
   }
 
   @override
@@ -105,7 +127,7 @@ class _settingsScreenState extends State<settingsScreen> {
                 padding: const EdgeInsets.all(10.0),
                 child: Container(
                   margin: EdgeInsets.only(
-                      left: 0.0, top: 20.0, right: 0.0, bottom: 20.0),
+                      left: 0.0, top: 15.0, right: 0.0, bottom: 15.0),
                   width: 320,
                   height: 50,
                   child: ElevatedButton(
@@ -217,11 +239,11 @@ class _settingsScreenState extends State<settingsScreen> {
                   margin: EdgeInsets.only(
                       left: 0.0, top: 20.0, right: 0.0, bottom: 0.0),
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Text(
-                      "Statistik 1",
+                      "Anzahl der Meditationen: $anzMed",
                       style: TextStyle(
-                        fontSize: 25,
+                        fontSize: 20,
                       ),
                     ),
                   ),
@@ -233,11 +255,11 @@ class _settingsScreenState extends State<settingsScreen> {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Text(
-                      "Statistik 2",
+                      "Insgesamte Dauer: $dauerMed",
                       style: TextStyle(
-                        fontSize: 25,
+                        fontSize: 20,
                       ),
                     ),
                   ),
@@ -250,7 +272,7 @@ class _settingsScreenState extends State<settingsScreen> {
                   children: [
                     Container(
                       width: 170,
-                      height: 170,
+                      height: 150,
                       child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => wasIstMeditation()));
@@ -260,7 +282,7 @@ class _settingsScreenState extends State<settingsScreen> {
                     ),
                     Container(
                       width: 170,
-                      height: 170,
+                      height: 150,
                       child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => wieGehtMeditation()));

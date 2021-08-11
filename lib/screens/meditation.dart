@@ -15,24 +15,31 @@ class meditationsScreen extends StatefulWidget {
     this.duration = d.split(":")[0];
     this.sound = e;
     med = category + ' ' + duration + ' ' + sound;
-    _meditationsScreenState(med, category);
+    _meditationsScreenState(med, category, duration);
   }
 
   @override
   _meditationsScreenState createState() =>
-      _meditationsScreenState(med, category);
+      _meditationsScreenState(med, category, duration);
 }
 
 class _meditationsScreenState extends State<meditationsScreen>
     with TickerProviderStateMixin {
   String mName = "Name der Meditation";
   String set = "";
+  String du = "";
   String setFavMedWMed = "favourite";
   String getFavMedWMed = "";
+  int sAnzMed = 0;
+  int sDauerMed = 0;
+  int gAnzMed = 0;
+  int gDauerMed = 0;
+  int aktuelleDauer = 0;
 
-  _meditationsScreenState(String a, String b) {
+  _meditationsScreenState(String a, String b, String c) {
     this.set = a;
     this.mName = b;
+    this.du = c;
   }
 
   AnimationController controller;
@@ -59,6 +66,28 @@ class _meditationsScreenState extends State<meditationsScreen>
     return getFavMedWMed;
   }
 
+  Future<void> _setIntSharedPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('anzahl', sAnzMed);
+
+  }
+  Future<void> _setDauerIntSharedPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('dauer', sDauerMed);
+  }
+
+  Future<int> _getIntSharedPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    gAnzMed = prefs.getInt('anzahl') ?? -1;
+    return gAnzMed;
+
+  }
+  Future<int> _getDauerIntSharedPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    gDauerMed = prefs.getInt('dauer') ?? -1;
+    return gDauerMed;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -69,6 +98,12 @@ class _meditationsScreenState extends State<meditationsScreen>
     controller.reverse(from: controller.value == 0.0 ? 1.0 : controller.value);
     _getStringFromSharedPref().then((s) {
       getFavMedWMed = s;
+    });
+    _getIntSharedPref().then((a) {
+      gAnzMed = a;
+    });
+    _getDauerIntSharedPref().then((d) {
+      gDauerMed = d;
     });
   }
 
@@ -135,6 +170,32 @@ class _meditationsScreenState extends State<meditationsScreen>
                                   );
                                 } else {
                                   if (controller.isDismissed) {
+
+                                    _getIntSharedPref();
+                                    _getDauerIntSharedPref();
+                                    print("getAnzVorsetzten");
+                                    print(gAnzMed);
+                                    if(gAnzMed == null) {
+                                      sAnzMed = 1;
+                                    } else {
+                                      sAnzMed = gAnzMed + 1;
+                                    }
+                                    print("setAnzNachsetzten");
+                                    print(sAnzMed);
+                                    aktuelleDauer = int.parse(du);
+                                    print("getDauerVorsetzten");
+                                    print(gDauerMed);
+                                    if(gDauerMed == null) {
+                                      sDauerMed = aktuelleDauer;
+                                    } else {
+                                      sDauerMed = gDauerMed + aktuelleDauer;
+                                    }
+                                    print("setDauerNachsetzten");
+                                    print(sDauerMed);
+                                    print("Ende");
+                                    _setIntSharedPref();
+                                    _setDauerIntSharedPref();
+
                                     return new Text(
                                       "Meditation beendet",
                                       style: TextStyle(fontSize: 50),
@@ -219,6 +280,20 @@ class _meditationsScreenState extends State<meditationsScreen>
                           _getStringFromSharedPref(),
                           print(getFavMedWMed),
                         },
+                        child: Text("Test"),
+                      )),
+                  Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        onPressed: () => {
+                          sDauerMed = 0,
+                          sAnzMed = 0,
+                          _setDauerIntSharedPref(),
+                          _setIntSharedPref(),
+                          print(sAnzMed),
+                          print(sDauerMed),
+                        },
+                        child: Text("Statistik = 0"),
                       )),
                 ],
               ),
