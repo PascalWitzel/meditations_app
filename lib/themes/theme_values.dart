@@ -23,27 +23,27 @@ final darkTextTheme = TextTheme(
 /// ----  Blue Theme  ----
 final blueTheme = ThemeData(
   primarySwatch: Colors.blue,
-  accentColor: Color(0xFF9FCCF8),
+  accentColor: Color(0xFFA5EDFA),
   textTheme: lightTextTheme,
 );
 
 /// ----  Orange Theme  ----
 final orangeTheme = ThemeData(
   primarySwatch: Colors.orange,
-  accentColor: Color(0xFFF8BB67),
+  accentColor: Color(0xFFEECD2A),
   textTheme: darkTextTheme,
 );
 
 /// ----  Green Theme  ----
 final greenTheme = ThemeData(
   primarySwatch: Colors.lightGreen,
-  accentColor: Color(0xFF54930C),
+  accentColor: Color(0xFF2B8D09),
   textTheme: darkTextTheme,
 );
 
 /// ----  Purple Theme  ----
 final purpleTheme = ThemeData(
-  primarySwatch: Colors.deepPurple,
-  accentColor: Color(0xFFA530BA),
+  primarySwatch: Colors.purple,
+  accentColor: Color(0xFFCE82FD),
   textTheme: lightTextTheme,
 );

@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meditations_app/screens/favliste.dart';
 import 'package:meditations_app/screens/meditation.dart';
 import 'package:meditations_app/screens/menu_home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'music_fav.dart';
 
 class WelcomeScreen extends StatefulWidget {
 
@@ -14,6 +18,15 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   String name = "Name";
   String fav = "";
+
+  List<String> images = [
+    "assets/images/Download.jpg",
+    "assets/images/Steinturm02.jpg",
+    "assets/images/Meditation Berg.jpg",
+    "assets/images/Meditation Ozean.jpg.jpg",
+  ];
+
+  var random = new Random();
 
   TextEditingController _controller = TextEditingController(text: "Test");
 
@@ -68,7 +81,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               fit: BoxFit.cover,
               colorFilter: new ColorFilter.mode(
                   Colors.black.withOpacity(0.4), BlendMode.dstATop),
-              image: AssetImage("assets/images/Download.jpg"),
+              image: AssetImage(images[random.nextInt(images.length - 1)]),
             ),
           ),
           child: Center(
@@ -127,12 +140,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ),
       );
     } else {
-      MaterialPageRoute favRoute;
-      if(fav != ""){
-        favRoute = MaterialPageRoute(builder: (context) => meditationsScreen(fav.split(" ")[0], fav.split(" ")[1], fav.split(" ")[2]));
-      } else {
-        favRoute = MaterialPageRoute(builder: (context) => favlisteScreen());
-      }
       return Scaffold(
         body: Container(
           decoration: BoxDecoration(
@@ -140,7 +147,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               fit: BoxFit.cover,
               colorFilter: new ColorFilter.mode(
                   Colors.black.withOpacity(0.4), BlendMode.dstATop),
-              image: AssetImage("assets/images/Download.jpg"),
+              image: AssetImage(images[random.nextInt(images.length - 1)]),
             ),
           ),
           child: Center(
@@ -160,7 +167,45 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                   buildMenuCrate(Icons.menu, "Meditation wählen", context, MaterialPageRoute(builder: (context) => HomeScreen())),
                   SizedBox(height: 20),
-                  buildMenuCrate(Icons.star, "Favorit starten", context, favRoute),
+                  GestureDetector(
+                    onTap: () {
+                      if(fav != ""){
+                        String category = fav.split(" ")[0];
+                        String length = fav.split(" ")[1];
+                        String sound = fav.split(" ")[2];
+                        print(sound);
+                        if(sound.trim() == "Musik"){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => MusicFav(category, length)));
+                        } else {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => meditationsScreen(category, length, sound)));
+                        }
+                      } else {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => favlisteScreen()));
+                      }
+                    },
+                    child: Container(
+                      height: 150,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black87, width: 2),
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Icon(Icons.star_border, size: 45),
+                        ),
+                        Text(
+                          "Favorit starten",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ]),
+                    ),
+                  ),
                   ElevatedButton(
                     onPressed: () => {
                       setState(() {

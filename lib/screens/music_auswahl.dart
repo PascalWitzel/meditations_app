@@ -8,7 +8,16 @@ class musicScreen extends StatefulWidget {
 
   musicScreen(String t) {
     this.title = t;
+
   }
+
+  static List<String> songs = [
+    "Lied 1",
+    "Lied 2",
+    "Lied 3",
+    "Lied 4",
+    "Lied 5"
+  ];
 
   @override
   _musicScreenState createState() => _musicScreenState();
@@ -17,22 +26,14 @@ class musicScreen extends StatefulWidget {
 class _musicScreenState extends State<musicScreen> {
   Icon musik = Icon(Icons.play_arrow);
 
-  List<String> songs = [
-    "Lied 1",
-    "Lied 2",
-    "Lied 3",
-    "Lied 4",
-    "Lied 5"
-  ];
-
-  int play = 0;
+  int play = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appbarback(context, widget.title),
       body: ListView.builder(
-        itemCount: songs.length,
+        itemCount: musicScreen.songs.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
@@ -45,7 +46,7 @@ class _musicScreenState extends State<musicScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text("${songs[index]}",
+                  Text("${musicScreen.songs[index]}",
                     style: TextStyle(
                       fontSize: 20,
                     ),
@@ -67,7 +68,7 @@ class _musicScreenState extends State<musicScreen> {
 
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ConfirmScreen(widget.title + " - " + songs[index])));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ConfirmScreen(widget.title + " - " + musicScreen.songs[index])));
                     },
                     child: Icon(Icons.arrow_forward_ios),
                   ),
