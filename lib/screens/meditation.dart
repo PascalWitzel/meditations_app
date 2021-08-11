@@ -180,16 +180,18 @@ class _meditationsScreenState extends State<meditationsScreen>
                                   : Icons.play_arrow);
                             }),
                         onPressed: () {
-                          if (controller.isAnimating) {
-                            setState(() {
-                              controller.stop();
-                            });
-                          } else {
-                            controller.reverse(
-                                from: controller.value == 0.0
-                                    ? 1.0
-                                    : controller.value);
-                          }
+                          setState(() {
+                            if (controller.isAnimating) {
+                              setState(() {
+                                controller.stop();
+                              });
+                            } else {
+                              controller.reverse(
+                                  from: controller.value == 0.0
+                                      ? 1.0
+                                      : controller.value);
+                            }
+                          });
                         },
                       ),
                     ),
