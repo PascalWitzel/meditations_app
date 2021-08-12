@@ -35,6 +35,7 @@ class _meditationsScreenState extends State<meditationsScreen>
   int gAnzMed = 0;
   int gDauerMed = 0;
   int aktuelleDauer = 0;
+  bool einmalig = true;
 
   _meditationsScreenState(String a, String b, String c) {
     this.set = a;
@@ -69,8 +70,8 @@ class _meditationsScreenState extends State<meditationsScreen>
   Future<void> _setIntSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('anzahl', sAnzMed);
-
   }
+
   Future<void> _setDauerIntSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('dauer', sDauerMed);
@@ -80,12 +81,44 @@ class _meditationsScreenState extends State<meditationsScreen>
     SharedPreferences prefs = await SharedPreferences.getInstance();
     gAnzMed = prefs.getInt('anzahl') ?? -1;
     return gAnzMed;
-
   }
+
   Future<int> _getDauerIntSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     gDauerMed = prefs.getInt('dauer') ?? -1;
     return gDauerMed;
+  }
+
+  void statistik () {
+    if(controller.isCompleted) {
+      print("Yeah");
+    } else {
+      print (controller.status);
+      print (einmalig);
+    }
+    if(controller.isDismissed && einmalig == true) {
+      _getIntSharedPref();
+      if(gAnzMed == null) {
+        sAnzMed = 1;
+      } else {
+        sAnzMed = gAnzMed + 1;
+      }
+      _setIntSharedPref();
+      print(sAnzMed);
+      _getDauerIntSharedPref();
+      aktuelleDauer = int.parse(du);
+      if(gDauerMed == null) {
+        sDauerMed = aktuelleDauer;
+      } else {
+        sDauerMed = gDauerMed + aktuelleDauer;
+      }
+      print(sDauerMed);
+      print("Ende");
+      _setDauerIntSharedPref();
+      einmalig = false;
+    } else {
+      print("nop");
+    }
   }
 
   @override
@@ -96,6 +129,7 @@ class _meditationsScreenState extends State<meditationsScreen>
       duration: Duration(minutes: int.parse(widget.duration)),
     );
     controller.reverse(from: controller.value == 0.0 ? 1.0 : controller.value);
+    einmalig = true;
     _getStringFromSharedPref().then((s) {
       getFavMedWMed = s;
     });
@@ -169,33 +203,8 @@ class _meditationsScreenState extends State<meditationsScreen>
                                     style: TextStyle(fontSize: 70),
                                   );
                                 } else {
+                                  statistik();
                                   if (controller.isDismissed) {
-
-                                    _getIntSharedPref();
-                                    _getDauerIntSharedPref();
-                                    print("getAnzVorsetzten");
-                                    print(gAnzMed);
-                                    if(gAnzMed == null) {
-                                      sAnzMed = 1;
-                                    } else {
-                                      sAnzMed = gAnzMed + 1;
-                                    }
-                                    print("setAnzNachsetzten");
-                                    print(sAnzMed);
-                                    aktuelleDauer = int.parse(du);
-                                    print("getDauerVorsetzten");
-                                    print(gDauerMed);
-                                    if(gDauerMed == null) {
-                                      sDauerMed = aktuelleDauer;
-                                    } else {
-                                      sDauerMed = gDauerMed + aktuelleDauer;
-                                    }
-                                    print("setDauerNachsetzten");
-                                    print(sDauerMed);
-                                    print("Ende");
-                                    _setIntSharedPref();
-                                    _setDauerIntSharedPref();
-
                                     return new Text(
                                       "Meditation beendet",
                                       style: TextStyle(fontSize: 50),
@@ -277,8 +286,11 @@ class _meditationsScreenState extends State<meditationsScreen>
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
                         onPressed: () => {
-                          _getStringFromSharedPref(),
-                          print(getFavMedWMed),
+                          _getDauerIntSharedPref(),
+                          _getIntSharedPref(),
+                          print(gAnzMed),
+                          print(gDauerMed),
+                          print(einmalig),
                         },
                         child: Text("Test"),
                       )),

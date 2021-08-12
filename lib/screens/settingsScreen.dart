@@ -30,14 +30,16 @@ class _settingsScreenState extends State<settingsScreen> {
 
   Future<int> _getIntSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    anzMed = prefs.getInt('anzahl') ?? -1;
-    return anzMed;
+    setState(() {
+      anzMed = prefs.getInt('anzahl') ?? -1;
+    });
   }
 
   Future<int> _getDauerIntSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    dauerMed =prefs.getInt('dauer') ?? -1;
-    return dauerMed;
+    setState(() {
+      dauerMed = prefs.getInt('dauer') ?? -1;
+    });
   }
 
   @override
@@ -45,12 +47,6 @@ class _settingsScreenState extends State<settingsScreen> {
     super.initState();
     _getStringFromSharedPref().then((s) {
       _controller.text = s;
-    });
-    _getIntSharedPref().then((a) {
-      anzMed = a;
-    });
-    _getDauerIntSharedPref().then((d) {
-      dauerMed = d;
     });
     _getIntSharedPref();
     _getDauerIntSharedPref();
