@@ -81,7 +81,9 @@ class _settingsScreenState extends State<settingsScreen> {
                         width: 320,
                         child: TextField(
                           controller: _controller,
+                          maxLength: 30,
                           decoration: InputDecoration(
+                            counterText: '',
                               border: OutlineInputBorder(), hintText: 'Name', focusColor: Theme.of(context).primaryColor),
                         ),
                       ),

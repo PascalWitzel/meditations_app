@@ -90,35 +90,26 @@ class _meditationsScreenState extends State<meditationsScreen>
   }
 
   void statistik () {
-    if(controller.isCompleted) {
-      print("Yeah");
-    } else {
-      print (controller.status);
-      print (einmalig);
-    }
-    if(controller.isDismissed && einmalig == true) {
-      _getIntSharedPref();
-      if(gAnzMed == null) {
-        sAnzMed = 1;
-      } else {
-        sAnzMed = gAnzMed + 1;
+      if (controller.isDismissed && einmalig == true) {
+          _getIntSharedPref();
+          if (gAnzMed == null) {
+            sAnzMed = 1;
+          } else {
+            sAnzMed = gAnzMed + 1;
+          }
+          _setIntSharedPref();
+          print(sAnzMed);
+          _getDauerIntSharedPref();
+          aktuelleDauer = int.parse(du);
+          if (gDauerMed == null) {
+            sDauerMed = aktuelleDauer;
+          } else {
+            sDauerMed = gDauerMed + aktuelleDauer;
+          }
+          print(sDauerMed);
+          _setDauerIntSharedPref();
+          einmalig = false;
       }
-      _setIntSharedPref();
-      print(sAnzMed);
-      _getDauerIntSharedPref();
-      aktuelleDauer = int.parse(du);
-      if(gDauerMed == null) {
-        sDauerMed = aktuelleDauer;
-      } else {
-        sDauerMed = gDauerMed + aktuelleDauer;
-      }
-      print(sDauerMed);
-      print("Ende");
-      _setDauerIntSharedPref();
-      einmalig = false;
-    } else {
-      print("nop");
-    }
   }
 
   @override
@@ -260,6 +251,7 @@ class _meditationsScreenState extends State<meditationsScreen>
                                   from: controller.value == 0.0
                                       ? 1.0
                                       : controller.value);
+                              einmalig = true;
                             }
                           });
                         },
@@ -282,31 +274,6 @@ class _meditationsScreenState extends State<meditationsScreen>
                                   : Icons.favorite_border)),
                     ),
                   ),
-                  Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        onPressed: () => {
-                          _getDauerIntSharedPref(),
-                          _getIntSharedPref(),
-                          print(gAnzMed),
-                          print(gDauerMed),
-                          print(einmalig),
-                        },
-                        child: Text("Test"),
-                      )),
-                  Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        onPressed: () => {
-                          sDauerMed = 0,
-                          sAnzMed = 0,
-                          _setDauerIntSharedPref(),
-                          _setIntSharedPref(),
-                          print(sAnzMed),
-                          print(sDauerMed),
-                        },
-                        child: Text("Statistik = 0"),
-                      )),
                 ],
               ),
             ),
