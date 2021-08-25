@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,6 +37,11 @@ class _meditationsScreenState extends State<meditationsScreen>
   int gDauerMed = 0;
   int aktuelleDauer = 0;
   bool einmalig = true;
+
+  AudioPlayer _audioPlayer = AudioPlayer();
+  static AudioCache _audioCache = AudioCache(prefix: 'assets/sounds/');
+  String audio = "pause.mp3";
+
 
   _meditationsScreenState(String a, String b, String c) {
     this.set = a;
@@ -89,31 +95,40 @@ class _meditationsScreenState extends State<meditationsScreen>
     return gDauerMed;
   }
 
-  void statistik () {
-      if (controller.isDismissed && einmalig == true) {
-          _getIntSharedPref();
-          if (gAnzMed == null) {
-            sAnzMed = 1;
-          } else {
-            sAnzMed = gAnzMed + 1;
-          }
-          _setIntSharedPref();
-          print(sAnzMed);
-          _getDauerIntSharedPref();
-          aktuelleDauer = int.parse(du);
-          if (gDauerMed == null) {
-            sDauerMed = aktuelleDauer;
-          } else {
-            sDauerMed = gDauerMed + aktuelleDauer;
-          }
-          print(sDauerMed);
-          _setDauerIntSharedPref();
-          einmalig = false;
+  void statistik() {
+    if (controller.isDismissed && einmalig == true) {
+      _getIntSharedPref();
+      if (gAnzMed == null) {
+        sAnzMed = 1;
+      } else {
+        sAnzMed = gAnzMed + 1;
       }
+      _setIntSharedPref();
+      print(sAnzMed);
+      _getDauerIntSharedPref();
+      aktuelleDauer = int.parse(du);
+      if (gDauerMed == null) {
+        sDauerMed = aktuelleDauer;
+      } else {
+        sDauerMed = gDauerMed + aktuelleDauer;
+      }
+      print(sDauerMed);
+      _setDauerIntSharedPref();
+      einmalig = false;
+    }
+  }
+
+  void _playFile() async{
+    _audioPlayer = await _audioCache.loop(audio);
+  }
+
+  void _stopFile() {
+    _audioPlayer?.stop();
   }
 
   @override
   void initState() {
+
     super.initState();
     controller = AnimationController(
       vsync: this,
@@ -130,6 +145,7 @@ class _meditationsScreenState extends State<meditationsScreen>
     _getDauerIntSharedPref().then((d) {
       gDauerMed = d;
     });
+    _playFile();
   }
 
   @override
@@ -196,6 +212,7 @@ class _meditationsScreenState extends State<meditationsScreen>
                                 } else {
                                   statistik();
                                   if (controller.isDismissed) {
+                                    _stopFile();
                                     return new Text(
                                       "Meditation beendet",
                                       style: TextStyle(fontSize: 50),
@@ -245,6 +262,7 @@ class _meditationsScreenState extends State<meditationsScreen>
                             if (controller.isAnimating) {
                               setState(() {
                                 controller.stop();
+                                _audioPlayer.pause();
                               });
                             } else {
                               controller.reverse(
@@ -252,6 +270,7 @@ class _meditationsScreenState extends State<meditationsScreen>
                                       ? 1.0
                                       : controller.value);
                               einmalig = true;
+                              _audioPlayer.resume();
                             }
                           });
                         },
@@ -266,7 +285,6 @@ class _meditationsScreenState extends State<meditationsScreen>
                           onPressed: () => {
                                 setFavMedWMed = set,
                                 _setStringSharedPref(),
-                                print("Done"),
                               },
                           child: new Icon(
                               _getStringFromSharedPref() == getFavMedWMed
