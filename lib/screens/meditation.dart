@@ -16,17 +16,17 @@ class meditationsScreen extends StatefulWidget {
     this.duration = d.split(":")[0];
     this.sound = e;
     med = category + ' ' + duration + ' ' + sound;
-    _meditationsScreenState(med, category, duration);
+    _meditationsScreenState(med, category, duration, sound);
   }
 
   @override
   _meditationsScreenState createState() =>
-      _meditationsScreenState(med, category, duration);
+      _meditationsScreenState(med, category, duration, sound);
 }
 
 class _meditationsScreenState extends State<meditationsScreen>
     with TickerProviderStateMixin {
-  String mName = "Name der Meditation";
+  String mName = "";
   String set = "";
   String du = "";
   String setFavMedWMed = "favourite";
@@ -40,13 +40,14 @@ class _meditationsScreenState extends State<meditationsScreen>
 
   AudioPlayer _audioPlayer = AudioPlayer();
   static AudioCache _audioCache = AudioCache(prefix: 'assets/sounds/');
-  String audio = "pause.mp3";
+  String audio = "";
 
 
-  _meditationsScreenState(String a, String b, String c) {
+  _meditationsScreenState(String a, String b, String c, String d) {
     this.set = a;
     this.mName = b;
     this.du = c;
+    this.audio = d;
   }
 
   AnimationController controller;
@@ -119,7 +120,7 @@ class _meditationsScreenState extends State<meditationsScreen>
   }
 
   void _playFile() async{
-    _audioPlayer = await _audioCache.loop(audio);
+    _audioPlayer = await _audioCache.loop(audio + ".mp3");
   }
 
   void _stopFile() {
@@ -138,6 +139,7 @@ class _meditationsScreenState extends State<meditationsScreen>
     einmalig = true;
     _getStringFromSharedPref().then((s) {
       getFavMedWMed = s;
+      setState(() {});
     });
     _getIntSharedPref().then((a) {
       gAnzMed = a;

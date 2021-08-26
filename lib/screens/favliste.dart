@@ -13,6 +13,7 @@ class _favlisteScreenState extends State<favlisteScreen> {
   String sound = "";
   String setFavMed = "";
   String getFavMed = "";
+  Icon fav;
 
   List<String> favorites = [
     "Kurz 3:00 Stumm",
@@ -24,7 +25,6 @@ class _favlisteScreenState extends State<favlisteScreen> {
     "Kurz 7:00 Stumm",
     "Kurz 7:00 Anleitung",
     "Kurz 7:00 Musik",
-
     "Mittel 10:00 Stumm",
     "Mittel 10:00 Anleitung",
     "Mittel 10:00 Musik",
@@ -34,7 +34,6 @@ class _favlisteScreenState extends State<favlisteScreen> {
     "Mittel 30:00 Stumm",
     "Mittel 30:00 Anleitung",
     "Mittel 30:00 Musik",
-
     "Lang 60:00 Stumm",
     "Lang 60:00 Anleitung",
     "Lang 60:00 Musik",
@@ -65,56 +64,59 @@ class _favlisteScreenState extends State<favlisteScreen> {
     });
   }
 
+  void buttonSetzen(index) {
+     _getStringFromSharedPref();
+      fav = new Icon(getFavMed == favorites[index]
+          ? Icons.favorite
+          : Icons.favorite_border);
+      print("HEy");
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appbarback(context, "Favoriten"),
       body: ListView.builder(
-        itemCount: favorites.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(width: 0.5, color: Colors.black),
+          itemCount: favorites.length,
+          itemBuilder: (context, index) {
+            buttonSetzen(index);
+            return Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(width: 0.5, color: Colors.black),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      favorites[index],
+                      style: TextStyle(
+                        fontSize: 20,
+                        wordSpacing: 30,
+                      ),
+                    ),
+                    Container(
+                      width: 50,
+                      child: ElevatedButton(
+                        onPressed: () => {
+                          setState(() {
+                            setFavMed = favorites[index];
+                            _setStringSharedPref();
+                            _getStringFromSharedPref();
+                          }),
+                        },
+                        child: fav
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    favorites[index],
-                    style: TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 30,
-                    ),
-                  ),
-                  Container(
-                    width: 50,
-                    child: ElevatedButton(
-                      onPressed: () =>
-                      {
-                        setState(() {
-                          setFavMed = favorites[index];
-                          _setStringSharedPref();
-                          _getStringFromSharedPref();
-                        }),
-                        print(setFavMed),
-                      },
-                      child: new Icon(getFavMed == favorites[index]
-                          ? Icons.favorite
-                          : Icons.favorite_border),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        }
-      ),
+            );
+          }),
     );
   }
 }
-
-

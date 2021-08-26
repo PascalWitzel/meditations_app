@@ -12,13 +12,13 @@ class musicScreen extends StatefulWidget {
   }
 
   static List<String> songs = ["pause", "Chorus", "Lied 3", "Lied 4", "Lied 5"];
+  static List<IconData> icons = [Icons.play_arrow, Icons.play_arrow, Icons.play_arrow, Icons.play_arrow, Icons.play_arrow];
 
   @override
   _musicScreenState createState() => _musicScreenState();
 }
 
 class _musicScreenState extends State<musicScreen> {
-  Icon musik = Icon(Icons.play_arrow);
   bool isPlaying = false;
 
   AudioPlayer _audioPlayer = AudioPlayer();
@@ -59,21 +59,18 @@ class _musicScreenState extends State<musicScreen> {
                       onPressed: () {
                         setState(() {
                           if (isPlaying) {
-                            setState(() {
-                              musik = Icon(Icons.play_arrow);
-                            });
                             _audioPlayer.stop();
                             isPlaying = false;
+                            musicScreen.icons[index] = Icons.play_arrow;
                           } else {
-                            setState(() {
-                              musik = Icon(Icons.pause);
-                            });
                             _playFile(musicScreen.songs[index]);
                             isPlaying = true;
+                            musicScreen.icons[index] = Icons.pause;
+
                           }
                         });
                       },
-                      child: musik,
+                      child: Icon(musicScreen.icons[index])
                     ),
                     ElevatedButton(
                       onPressed: () {
