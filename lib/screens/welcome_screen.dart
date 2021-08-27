@@ -22,7 +22,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     "assets/images/Download.jpg",
     "assets/images/Steinturm02.jpg",
     "assets/images/Meditation Berg.jpg",
-    "assets/images/Meditation Ozean.jpg.jpg",
+    "assets/images/Meditation Ozean.jpg",
   ];
 
   var random = new Random();
