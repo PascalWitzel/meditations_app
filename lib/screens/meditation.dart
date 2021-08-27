@@ -1,9 +1,12 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meditations_app/screens/settingsScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'appbar.dart';
 import 'dart:math' as math;
+
+import 'menu_home.dart';
 
 class meditationsScreen extends StatefulWidget {
   String category;
@@ -153,7 +156,53 @@ class _meditationsScreenState extends State<meditationsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appbarende(context, "Meditation"),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          "Meditation",
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.clear),
+          onPressed: () async {
+            setState(() {
+              controller.stop();
+              _audioPlayer.pause();
+            });
+            if (await confirm(
+              context,
+              title: Text('Meditation beenden'),
+              content: Text('Willst du die Meditation wirklich abbrechen?'),
+              textOK: Text('Ja'),
+              textCancel: Text('Nein'),
+
+            )) {
+              setState(() {
+                _stopFile();
+              });
+              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            } else {
+              controller.reverse(
+                  from: controller.value == 0.0
+                      ? 1.0
+                      : controller.value);
+              einmalig = true;
+              _audioPlayer.resume();
+            }
+          },
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12.0),
+            child: GestureDetector(
+              child: Icon(Icons.settings),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => settingsScreen()));
+              },
+            ),
+          )
+        ],
+      ),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
