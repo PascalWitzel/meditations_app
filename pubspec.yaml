@@ -33,6 +33,7 @@ dependencies:
   provider: ^5.0.0
   audioplayers: ^0.19.1
   file_picker: ^4.0.0
+  animated_splash_screen: ^1.1.0
 
 
 

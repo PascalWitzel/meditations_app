@@ -1,3 +1,4 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:meditations_app/screens/welcome_screen.dart';
 import 'package:meditations_app/themes/theme_notifier.dart';
@@ -37,7 +38,17 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: themeNotifier.getTheme(),
-      home: WelcomeScreen(),
+      home: AnimatedSplashScreen(
+        duration: 3000,
+        splash: Image.asset(
+            'assets/images/forground.png'
+        ),
+        nextScreen: WelcomeScreen(),
+        splashTransition: SplashTransition.scaleTransition,
+        backgroundColor: Colors.white70,
+
+      )
+
     );
   }
 }
