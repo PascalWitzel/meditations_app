@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'appbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,6 +15,12 @@ class _favlisteScreenState extends State<favlisteScreen> {
   String setFavMed = "";
   String getFavMed = "";
   Icon fav;
+  List<String> images = [
+    "assets/images/Download.jpg",
+    "assets/images/Steinturm02.jpg",
+    "assets/images/Meditation Berg.jpg",
+    "assets/images/Meditation Ozean.jpg",
+  ];
 
   List<String> favorites = [
     "Kurz 3:00 Stumm",
@@ -76,45 +83,55 @@ class _favlisteScreenState extends State<favlisteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appbarback(context, "Favoriten"),
-      body: ListView.builder(
-          itemCount: favorites.length,
-          itemBuilder: (context, index) {
-            buttonSetzen(index);
-            return Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(width: 0.5, color: Colors.black),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            colorFilter: new ColorFilter.mode(
+                Colors.black.withOpacity(0.2), BlendMode.dstATop),
+            image: AssetImage(images[2]),
+          ),
+        ),
+        child: ListView.builder(
+            itemCount: favorites.length,
+            itemBuilder: (context, index) {
+              buttonSetzen(index);
+              return Padding(
+                padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(width: 0.5, color: Colors.black),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        favorites[index],
+                        style: TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 30,
+                        ),
+                      ),
+                      Container(
+                        width: 50,
+                        child: ElevatedButton(
+                            onPressed: () => {
+                                  setState(() {
+                                    setFavMed = favorites[index];
+                                    _setStringSharedPref();
+                                    _getStringFromSharedPref();
+                                  }),
+                                },
+                            child: fav),
+                      ),
+                    ],
                   ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      favorites[index],
-                      style: TextStyle(
-                        fontSize: 20,
-                        wordSpacing: 30,
-                      ),
-                    ),
-                    Container(
-                      width: 50,
-                      child: ElevatedButton(
-                          onPressed: () => {
-                                setState(() {
-                                  setFavMed = favorites[index];
-                                  _setStringSharedPref();
-                                  _getStringFromSharedPref();
-                                }),
-                              },
-                          child: fav),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }),
+              );
+            }),
+      ),
     );
   }
 }
