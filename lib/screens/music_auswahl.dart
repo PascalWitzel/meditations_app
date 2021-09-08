@@ -32,63 +32,75 @@ class _musicScreenState extends State<musicScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appbarback(context, widget.title),
-      body: ListView.builder(
-          itemCount: musicScreen.songs.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(width: 0.5, color: Colors.black),
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Theme.of(context).primaryColor,
+                Theme.of(context).accentColor,
+              ],
+            )
+        ),
+        child: ListView.builder(
+            itemCount: musicScreen.songs.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(width: 0.5, color: Colors.black),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        "${musicScreen.songs[index]}",
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 50,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            if (isPlaying) {
+                              _audioPlayer.stop();
+                              isPlaying = false;
+                              musicScreen.icons[index] = Icons.play_arrow;
+                            } else {
+                              _playFile(musicScreen.songs[index]);
+                              isPlaying = true;
+                              musicScreen.icons[index] = Icons.pause;
+
+                            }
+                          });
+                        },
+                        child: Icon(musicScreen.icons[index])
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ConfirmScreen(
+                                      widget.title +
+                                          " - " +
+                                          musicScreen.songs[index])));
+                        },
+                        child: Icon(Icons.arrow_forward_ios),
+                      ),
+                    ],
                   ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      "${musicScreen.songs[index]}",
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 50,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          if (isPlaying) {
-                            _audioPlayer.stop();
-                            isPlaying = false;
-                            musicScreen.icons[index] = Icons.play_arrow;
-                          } else {
-                            _playFile(musicScreen.songs[index]);
-                            isPlaying = true;
-                            musicScreen.icons[index] = Icons.pause;
-
-                          }
-                        });
-                      },
-                      child: Icon(musicScreen.icons[index])
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ConfirmScreen(
-                                    widget.title +
-                                        " - " +
-                                        musicScreen.songs[index])));
-                      },
-                      child: Icon(Icons.arrow_forward_ios),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }),
+              );
+            }),
+      ),
     );
   }
 }

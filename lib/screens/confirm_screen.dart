@@ -70,11 +70,21 @@ class ConfirmScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 30,),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => meditationsScreen(category, length, sound)));
-                }, child: Text("Starten")),
+              SizedBox(height: 30),
+              Container(
+                height: 50,
+                width: 150,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => meditationsScreen(category, length, sound)));
+                  }, child: Text("Starten" ,
+                  style: TextStyle(
+                    fontSize: 25,
+                  ),
+                )
+                ),
+              ),
+              SizedBox(height: 15),
               ElevatedButton(onPressed: () {
                 Navigator.pop(context);
               }, child: Text("Zurück")),
