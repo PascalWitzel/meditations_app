@@ -68,6 +68,7 @@ class _settingsScreenState extends State<settingsScreen> {
     return Scaffold(
       appBar: appbarSetting(context, "Settings"),
       body: Container(
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.cover,
