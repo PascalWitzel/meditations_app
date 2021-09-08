@@ -157,11 +157,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 padding: const EdgeInsets.only(bottom: 30.0),
                 child: Text(
                   "Willkommen " + name,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                       fontFamily:
                           Theme.of(context).textTheme.headline1.fontFamily,
                       fontSize: Theme.of(context).textTheme.headline1.fontSize,
-                      color: Colors.black),
+                      color: Colors.black
+                  ),
                 ),
               ),
               buildMenuCrate(Icons.menu, "Meditation wählen", context,
