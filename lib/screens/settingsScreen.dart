@@ -14,7 +14,7 @@ class settingsScreen extends StatefulWidget {
 }
 
 class _settingsScreenState extends State<settingsScreen> {
-  TextEditingController _controller = TextEditingController(text: "Test");
+  TextEditingController _controller = TextEditingController(text: "");
   int anzMed = 0;
   int dauerMed = 0;
 
@@ -71,8 +71,7 @@ class _settingsScreenState extends State<settingsScreen> {
                     width: 2.0,
                   ),
                 ),
-                child: Column(
-                children: [
+                child: Column(children: [
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -83,8 +82,10 @@ class _settingsScreenState extends State<settingsScreen> {
                           controller: _controller,
                           maxLength: 25,
                           decoration: InputDecoration(
-                            counterText: '',
-                              border: OutlineInputBorder(), hintText: 'Name', focusColor: Theme.of(context).primaryColor),
+                              counterText: '',
+                              border: OutlineInputBorder(),
+                              hintText: 'Name',
+                              focusColor: Theme.of(context).primaryColor),
                         ),
                       ),
                     ),
@@ -272,21 +273,27 @@ class _settingsScreenState extends State<settingsScreen> {
                       width: 170,
                       height: 150,
                       child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => wasIstMeditation()));
-                          },
-                          child: Text("Was ist Meditation?"),
-                          ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => wasIstMeditation()));
+                        },
+                        child: Text("Was ist Meditation?"),
+                      ),
                     ),
                     Container(
                       width: 170,
                       height: 150,
                       child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => wieGehtMeditation()));
-                          },
-                          child: Text("Wie geht Meditation?"),
-                          ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => wieGehtMeditation()));
+                        },
+                        child: Text("Wie geht Meditation?"),
+                      ),
                     ),
                   ],
                 ),

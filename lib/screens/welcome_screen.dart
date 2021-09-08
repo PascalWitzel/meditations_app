@@ -27,7 +27,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   var random = new Random();
 
-  TextEditingController _controller = TextEditingController(text: "Test");
+  TextEditingController _controller = TextEditingController(text: "");
 
   Future<String> getName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
