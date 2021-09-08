@@ -270,10 +270,9 @@ class _meditationsScreenState extends State<meditationsScreen>
                                       textAlign: TextAlign.center,
                                     );
                                   } else {
-                                    return new Text(
-                                      "Meditation pausiert",
-                                      style: TextStyle(fontSize: 50),
-                                      textAlign: TextAlign.center,
+                                    return new Icon(
+                                        Icons.pause,
+                                      size: 120,
                                     );
                                   }
                                 }
@@ -367,7 +366,7 @@ class TimerPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
       ..color = backgroundColor
-      ..strokeWidth = 10.0
+      ..strokeWidth = 15.0
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
