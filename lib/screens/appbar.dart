@@ -9,12 +9,11 @@ AppBar appbarhome(BuildContext context, String title) {
       title,
     ),
     leading: GestureDetector(
-      child: Icon(Icons.house),
-      onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => WelcomeScreen()));
-      }
-    ),
+        child: Icon(Icons.house),
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => WelcomeScreen()));
+        }),
     actions: [
       Padding(
         padding: const EdgeInsets.only(right: 12.0),
@@ -39,9 +38,7 @@ AppBar appbarback(BuildContext context, String title) {
     leading: IconButton(
       icon: Icon(Icons.arrow_back_ios),
       onPressed: () {
-        Navigator.pop(
-            context
-        );
+        Navigator.pop(context);
       },
     ),
     actions: [
@@ -56,5 +53,21 @@ AppBar appbarback(BuildContext context, String title) {
         ),
       )
     ],
+  );
+}
+
+
+AppBar appbarSetting(BuildContext context, String title) {
+  return AppBar(
+    centerTitle: true,
+    title: Text(
+      title,
+    ),
+    leading: IconButton(
+      icon: Icon(Icons.arrow_back_ios),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    ),
   );
 }

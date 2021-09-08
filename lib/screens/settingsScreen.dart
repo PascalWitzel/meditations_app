@@ -57,7 +57,7 @@ class _settingsScreenState extends State<settingsScreen> {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
 
     return Scaffold(
-      appBar: appbarback(context, "Settings"),
+      appBar: appbarSetting(context, "Settings"),
       body: SingleChildScrollView(
         child: Column(
           children: [
