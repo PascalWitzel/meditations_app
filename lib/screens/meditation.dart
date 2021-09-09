@@ -18,7 +18,7 @@ class meditationsScreen extends StatefulWidget {
     this.category = c;
     this.duration = d.split(":")[0];
     this.sound = e;
-    med = category + ' ' + duration + ' ' + sound;
+    med = category + ' ' + d + ' ' + sound;
     _meditationsScreenState(med, category, duration, sound);
   }
 
@@ -141,8 +141,9 @@ class _meditationsScreenState extends State<meditationsScreen>
     controller.reverse(from: controller.value == 0.0 ? 1.0 : controller.value);
     einmalig = true;
     _getStringFromSharedPref().then((s) {
-      getFavMedWMed = s;
-      setState(() {});
+      setState(() {
+        getFavMedWMed = s;
+      });
     });
     _getIntSharedPref().then((a) {
       gAnzMed = a;
@@ -333,11 +334,15 @@ class _meditationsScreenState extends State<meditationsScreen>
                     child: FittedBox(
                       child: FloatingActionButton(
                           onPressed: () => {
-                                setFavMedWMed = set,
-                                _setStringSharedPref(),
+                          setState(() {
+                            setFavMedWMed = set;
+                            _setStringSharedPref();
+                            _getStringFromSharedPref();
+                          })
+
                               },
                           child: new Icon(
-                              _getStringFromSharedPref() == getFavMedWMed
+                              set == getFavMedWMed
                                   ? Icons.favorite
                                   : Icons.favorite_border)),
                     ),
