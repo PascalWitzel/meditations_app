@@ -89,13 +89,13 @@ class _meditationsScreenState extends State<meditationsScreen>
 
   Future<int> _getIntSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    gAnzMed = prefs.getInt('anzahl') ?? -1;
+    gAnzMed = prefs.getInt('anzahl') ?? 0;
     return gAnzMed;
   }
 
   Future<int> _getDauerIntSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    gDauerMed = prefs.getInt('dauer') ?? -1;
+    gDauerMed = prefs.getInt('dauer') ?? 0;
     return gDauerMed;
   }
 

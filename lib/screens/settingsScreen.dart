@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:meditations_app/screens/was_ist_meditation.dart';
 import 'package:meditations_app/screens/wie_geht_meditation.dart';
@@ -19,13 +17,6 @@ class _settingsScreenState extends State<settingsScreen> {
   TextEditingController _controller = TextEditingController(text: "");
   int anzMed = 0;
   int dauerMed = 0;
-  List<String> images = [
-    "assets/images/Download.jpg",
-    "assets/images/Steinturm02.jpg",
-    "assets/images/Meditation Berg.jpg",
-    "assets/images/Meditation Ozean.jpg",
-  ];
-  var random = new Random();
 
   Future<void> _setStringSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -67,17 +58,7 @@ class _settingsScreenState extends State<settingsScreen> {
 
     return Scaffold(
       appBar: appbarSetting(context, "Settings"),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            colorFilter: new ColorFilter.mode(
-                Colors.black.withOpacity(0.2), BlendMode.dstATop),
-            image: AssetImage(images[random.nextInt(images.length - 1)]),
-          ),
-        ),
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
           child: Column(
             children: [
               Padding(
@@ -275,7 +256,7 @@ class _settingsScreenState extends State<settingsScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Text(
-                        "Insgesamte Dauer: $dauerMed",
+                        "Insgesamte Dauer: $dauerMed:00",
                         style: TextStyle(
                           fontSize: 20,
                         ),
@@ -321,8 +302,7 @@ class _settingsScreenState extends State<settingsScreen> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 
   Widget _getIcon(ThemeNotifier themeNotifier, buttonThemeData) {

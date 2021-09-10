@@ -221,39 +221,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       ]),
                 ),
               ),
-              SizedBox(
-                height: 25,
-              ),
-              ElevatedButton(
-                onPressed: () => {
-                  setState(() {
-                    setName("Name");
-                    getName();
-                  }),
-                },
-                child: Text("Namen löschen"),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              ElevatedButton(
-                onPressed: () => {
-                  setState(() {
-                    setFav("");
-                    getFav();
-                  }),
-                },
-                child: Text("Favorit löschen"),
-              ),
-              ElevatedButton(
-                onPressed: () => {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => favlisteScreen())),
-                },
-                child: Text("Favorit setzen"),
-              ),
             ]),
           ),
         ),
