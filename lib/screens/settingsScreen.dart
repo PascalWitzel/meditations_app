@@ -31,14 +31,14 @@ class _settingsScreenState extends State<settingsScreen> {
   Future<int> _getIntSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      anzMed = prefs.getInt('anzahl') ?? -1;
+      anzMed = prefs.getInt('anzahl') ?? 0;
     });
   }
 
   Future<int> _getDauerIntSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      dauerMed = prefs.getInt('dauer') ?? -1;
+      dauerMed = prefs.getInt('dauer') ?? 0;
     });
   }
 
