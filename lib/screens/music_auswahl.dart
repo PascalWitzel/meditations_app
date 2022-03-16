@@ -11,7 +11,7 @@ class musicScreen extends StatefulWidget {
     this.title = t;
   }
 
-  static List<String> songs = ["pause", "Chorus", "Lied 3", "Lied 4", "Lied 5"];
+  static List<String> songs = ["pause", "Chorus", "testtesttesttesttesttestestestestestestsetes", "Lied 4", "Lied 5"];
   static List<IconData> icons = [Icons.play_arrow, Icons.play_arrow, Icons.play_arrow, Icons.play_arrow, Icons.play_arrow];
 
   @override
@@ -57,14 +57,20 @@ class _musicScreenState extends State<musicScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(
-                        "${musicScreen.songs[index]}",
-                        style: TextStyle(
-                          fontSize: 20,
+                      Container(
+                        width: 150,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Text(
+                            "${musicScreen.songs[index]}",
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
                         ),
                       ),
                       SizedBox(
-                        width: 50,
+                        width: 0,
                       ),
                       ElevatedButton(
                         onPressed: () {
