@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,6 +42,7 @@ class _meditationsScreenState extends State<meditationsScreen>
   int gDauerMed = 0;
   int aktuelleDauer = 0;
   bool einmalig = true;
+  bool visibility = true;
 
   AudioPlayer _audioPlayer = AudioPlayer();
   static AudioCache _audioCache = AudioCache(prefix: 'assets/sounds/');
@@ -130,6 +133,9 @@ class _meditationsScreenState extends State<meditationsScreen>
     _audioPlayer?.stop();
   }
 
+  void _visible() async{
+    visibility = false;
+  }
   @override
   void initState() {
 
@@ -152,6 +158,7 @@ class _meditationsScreenState extends State<meditationsScreen>
       gDauerMed = d;
     });
     _playFile();
+
   }
 
   @override
@@ -169,25 +176,39 @@ class _meditationsScreenState extends State<meditationsScreen>
               controller.stop();
               _audioPlayer.pause();
             });
-            if (await confirm(
-              context,
-              title: Text('Meditation beenden'),
-              content: Text('Willst du die Meditation wirklich abbrechen?'),
-              textOK: Text('Ja'),
-              textCancel: Text('Nein'),
+            if (!controller.isDismissed) {
+              if (await confirm(
+                context,
+                title: Text('Meditation beenden'),
+                content: Text('Willst du die Meditation wirklich abbrechen?'),
+                textOK: Text('Ja'),
+                textCancel: Text('Nein'),
 
-            )) {
-              setState(() {
-                _stopFile();
-              });
-              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+              )) {
+                setState(() {
+                  _stopFile();
+                });
+                Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+              } else {
+                controller.reverse(
+                    from: controller.value == 0.0
+                        ? 1.0
+                        : controller.value);
+                einmalig = true;
+                _audioPlayer.resume();
+              }
             } else {
-              controller.reverse(
-                  from: controller.value == 0.0
-                      ? 1.0
-                      : controller.value);
-              einmalig = true;
-              _audioPlayer.resume();
+              if (await confirm(
+                context,
+                title: Text('Meditation beendet'),
+                content: Text('Willst du zum Meditationsmenü zurück?'),
+                textOK: Text('Ja'),
+                textCancel: Text('Nein'),
+
+              )) {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+              } else {
+              }
             }
           },
         ),
@@ -265,6 +286,7 @@ class _meditationsScreenState extends State<meditationsScreen>
                                   statistik();
                                   if (controller.isDismissed) {
                                     _stopFile();
+                                    _visible();
                                     return new Text(
                                       "Meditation beendet",
                                       style: TextStyle(fontSize: 50),
@@ -296,56 +318,109 @@ class _meditationsScreenState extends State<meditationsScreen>
                     width: 50,
                     height: 50,
                   ),
-                  Container(
-                    width: 75,
-                    height: 75,
-                    child: FittedBox(
-                      child: FloatingActionButton(
-                        child: AnimatedBuilder(
-                            animation: controller,
-                            builder: (BuildContext context, Widget child) {
-                              return new Icon(controller.isAnimating
-                                  ? Icons.pause
-                                  : Icons.play_arrow);
-                            }),
-                        onPressed: () {
-                          setState(() {
-                            if (controller.isAnimating) {
-                              setState(() {
-                                controller.stop();
-                                _audioPlayer.pause();
-                              });
-                            } else {
-                              controller.reverse(
-                                  from: controller.value == 0.0
-                                      ? 1.0
-                                      : controller.value);
-                              einmalig = true;
-                              _audioPlayer.resume();
-                            }
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    child: FittedBox(
-                      child: FloatingActionButton(
-                          onPressed: () => {
-                          setState(() {
-                            setFavMedWMed = set;
-                            _setStringSharedPref();
-                            _getStringFromSharedPref();
-                          })
 
+                  Column(
+                    children: [
+                      if (visibility) ... [
+                      Container(
+                        width: 75,
+                        height: 75,
+                        child: FittedBox(
+                          child: FloatingActionButton(
+                            child: AnimatedBuilder(
+                                animation: controller,
+                                builder: (BuildContext context, Widget child) {
+                                  return new Icon(controller.isAnimating
+                                      ? Icons.pause
+                                      : Icons.play_arrow);
+                                }),
+                            onPressed: () {
+                              setState(() {
+                                if (controller.isAnimating) {
+                                  setState(() {
+                                    controller.stop();
+                                    _audioPlayer.pause();
+                                  });
+                                } else {
+                                  controller.reverse(
+                                      from: controller.value == 0.0
+                                          ? 1.0
+                                          : controller.value);
+                                  einmalig = true;
+                                  _audioPlayer.resume();
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      ] else ... [
+                        Container(
+                          width: 75,
+                          height: 75,
+                          child: FittedBox(
+                            child: FloatingActionButton(
+                              child: Icon(
+                                  Icons.home,
+                                  ),
+                              onPressed: () {
+                                setState(() {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                                });
                               },
-                          child: new Icon(
-                              set == getFavMedWMed
-                                  ? Icons.favorite
-                                  : Icons.favorite_border)),
-                    ),
+                            ),
+                          ),
+                        ),
+                      ]
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      if (!visibility) ... [
+                      Container(
+                        width: 50,
+                        height: 50,
+                        child: FittedBox(
+                          child: FloatingActionButton(
+                              onPressed: () => {
+                                setState(() {
+                                  visibility = true;
+                                }),
+                                controller.reverse(
+                                  from: controller.value == 0.0
+                                  ? 1.0
+                                  : controller.value
+                                ),
+                                einmalig = true,
+                                _audioPlayer.resume(),
+                              },
+                              child: new Icon(
+                                  Icons.settings_backup_restore,
+                              ),
+                          ),
+                        ),
+                      ),
+                      ] else ... [
+                          Container(
+                          width: 50,
+                          height: 50,
+                          child: FittedBox(
+                            child: FloatingActionButton(
+                                onPressed: () => {
+                                  setState(() {
+                                    setFavMedWMed = set;
+                                    _setStringSharedPref();
+                                    _getStringFromSharedPref();
+                                  })
+                                },
+                                child: new Icon(
+                                    set == getFavMedWMed
+                                        ? Icons.favorite
+                                        : Icons.favorite_border)),
+                          ),
+                        ),
+                      ]
+                    ]
                   ),
                 ],
               ),
